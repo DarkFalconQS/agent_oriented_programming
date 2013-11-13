@@ -1,2 +1,3 @@
-agent_oriented_programming
+Agent Oriented Programming
 ==========================
+We are awesome
