@@ -8,7 +8,7 @@ package main_package;
  *
  * @author Dark_Falcon
  */
-public class main {
+public class main_package {
 
     /**
      * @param args the command line arguments
