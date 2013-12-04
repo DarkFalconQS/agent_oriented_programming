@@ -5,6 +5,12 @@ public class InventoryItem {
   private int amount;
   private Rack location;
 
+  public InventoryItem(String name, int number_of, Rack new_location) {
+    itemName = name;
+    amount = number_of;
+    location = new_location;
+  }
+
   public String getItemName() {
     return itemName;
   }
