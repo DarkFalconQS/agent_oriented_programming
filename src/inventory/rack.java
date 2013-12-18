@@ -1,6 +1,7 @@
 package inventory;
 
 import jade.core.Agent;
+import java.util.ArrayList;
 
 public class RackAgent extends Agent {
   private Path m_route;
@@ -22,6 +23,6 @@ public class RackAgent extends Agent {
   }
 
   private void reportItem() {
-    
+
   }
 }
