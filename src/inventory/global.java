@@ -13,4 +13,8 @@ public class GlobalInventoryAgent extends Agent {
   protected void setup() {
 
   }
+
+  public void getInventory() /*yet to be determined */ {
+    
+  }
 }

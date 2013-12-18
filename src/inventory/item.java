@@ -4,6 +4,7 @@ public class InventoryItem {
   private String itemName;
   private int amount;
   private Rack location;
+  private int size;
 
   public InventoryItem(String name, int number_of, Rack new_location) {
     itemName = name;
@@ -23,6 +24,10 @@ public class InventoryItem {
     return location;
   }
 
+  public int size getSize() {
+    return size;
+  }
+
   public void setItemName(String name) {
     itemName = name;
   }
@@ -33,6 +38,10 @@ public class InventoryItem {
 
   public void setLocation(Rack new_location) {
     location = new_location;
+  }
+
+  public void setSize(int new_size) {
+    size = new_size;
   }
 
 }
