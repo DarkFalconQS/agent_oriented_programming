@@ -10,9 +10,18 @@ public class RackAgent extends Agent {
   private ArrayList<Item> m_items;
 
   public RackAgent(String name, Path route) {
-    m_name = name;
-    m_path = path;
+    init();
+    run();
   }
+
+   private void init(){
+      m_name = name;
+      m_path = path;
+   }
+
+   private void run(){
+
+   }
 
     public Path getM_route() {
         return m_route;
