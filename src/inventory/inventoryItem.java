@@ -13,7 +13,7 @@ public class InventoryItem {
   }
 
   public int getSize() {
-    return m_size;]
+    return m_size;
   }
 
   public String getItemName() {
