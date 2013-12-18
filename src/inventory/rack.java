@@ -60,7 +60,8 @@ public class RackAgent extends Agent {
   }
 
   private void checkItems() {
-
+    //If an item is almost empty
+    reportItem();
   }
 
   private void reportItem() {
