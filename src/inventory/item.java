@@ -12,6 +12,10 @@ public class InventoryItem {
     location = new_location;
   }
 
+    public int getSize() {
+        return size;
+    }
+
   public String getItemName() {
     return itemName;
   }

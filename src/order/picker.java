@@ -9,6 +9,14 @@ public class OrderPickerAgent extends Agent {
     
   }
 
+    public Queue getOrderList() {
+        return orderList;
+    }
+
+    public void setOrderList(Queue orderList) {
+        this.orderList = orderList;
+    }
+
   public OrderPickerAgent(Queue list = null) {
     if (list != null) {
       orderList = list;

@@ -14,6 +14,14 @@ public class GlobalInventoryAgent extends Agent {
 
   }
 
+    public ArrayList<Rack> getRacks() {
+        return racks;
+    }
+
+    public void setRacks(ArrayList<Rack> racks) {
+        this.racks = racks;
+    }
+
   public void getInventory() /*yet to be determined */ {
     
   }
