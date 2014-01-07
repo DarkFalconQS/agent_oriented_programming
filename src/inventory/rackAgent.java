@@ -1,13 +1,29 @@
 package inventory;
 
 import jade.core.Agent;
+import jade.core.AID;
+import jade.lang.acl.*;
+import jade.core.behaviours.*;
 import java.util.ArrayList;
 
 public class RackAgent extends Agent {
   private Path m_route;
   private String m_name;
-  private int m_slots;
   private ArrayList<InventoryItem> m_items;
+
+  public void setup() {
+    addBehaviour(new CyclicBehaviour(this) {
+      public void action() {
+        ACLMessage msg = receive();
+        if(msg != null)
+          System.out.println(" - " + 
+            getLocalName() + " <- " +
+            msg.getContent() 
+          );
+        block();
+      }
+    });
+  }
 
   public RackAgent(String name, Path route) {
     m_name = name;
