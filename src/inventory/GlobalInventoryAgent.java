@@ -7,7 +7,7 @@ package inventory;
 
 import jade.core.AID;
 import jade.core.Agent;
-import jade.core.behaviours.SimpleBehaviour;
+import jade.core.behaviours.*;
 import jade.lang.acl.ACLMessage;
 import java.util.ArrayList;
 
@@ -24,7 +24,7 @@ public class GlobalInventoryAgent {
     }
 
     protected void setup() {
-
+        addBehaviour();
     }
 
     public ArrayList<RackAgent> getRacks() {
@@ -43,10 +43,12 @@ public class GlobalInventoryAgent {
         /* check for all available rack agents */
     }
 
-    public class myBehaviour extends SimpleBehaviour {
-
-        public myBehaviour(Agent a) {
+    public class MyBehaviour extends SimpleBehaviour {
+        private Agent m_a;
+        
+        public MyBehaviour(Agent a) {
             super(a);
+            m_a = a;
         }
 
         public void action() {
@@ -56,7 +58,7 @@ public class GlobalInventoryAgent {
             for (int i = 1; i <= 2; i++) {
                 msg.addReceiver(new AID("Rack" + i, AID.ISLOCALNAME));
             }
-            send(msg);
+            m_a.send(msg);
         }
 
         private boolean finished = false;
