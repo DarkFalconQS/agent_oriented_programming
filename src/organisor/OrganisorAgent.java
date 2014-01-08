@@ -26,7 +26,7 @@ public class OrganisorAgent extends Agent {
   private ArrayList<InventoryItem> m_items;
 
   protected void setup() {
-    addBehaviour( new MyBehaviour (this, getSlots()) );
+    addBehaviour( new MyBehaviour (this) );
   }
 
   private void getItem() {
@@ -58,12 +58,10 @@ public class OrganisorAgent extends Agent {
   }
 public class MyBehaviour extends SimpleBehaviour {
         private Agent m_a;
-        int m_slots;
         
-        public MyBehaviour(Agent a, int slots) {
+        public MyBehaviour(Agent a) {
             super(a);
             m_a = a;
-            m_slots = slots;
         }
 
         public void action() {
