@@ -44,7 +44,7 @@ public class GlobalInventoryAgent extends Agent {
       msg.setContent("Connection working!");
 
       for (int i = 1; i<=2; i++)
-        msg.addReceiver( new AID( "store" + i, AID.ISLOCALNAME) );
+        msg.addReceiver( new AID( "Rack" + i, AID.ISLOCALNAME) );
       send(msg);
     }
     
