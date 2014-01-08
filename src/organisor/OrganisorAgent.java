@@ -26,7 +26,7 @@ public class OrganisorAgent extends Agent {
   private ArrayList<InventoryItem> m_items;
 
   protected void setup() {
-    addBehaviour( new MyBehaviour (this) );
+    addBehaviour( new MyBehaviour (this, getSlots()) );
   }
 
   private void getItem() {
@@ -58,18 +58,20 @@ public class OrganisorAgent extends Agent {
   }
 public class MyBehaviour extends SimpleBehaviour {
         private Agent m_a;
+        int m_slots;
         
-        public MyBehaviour(Agent a) {
+        public MyBehaviour(Agent a, int slots) {
             super(a);
             m_a = a;
+            m_slots = slots;
         }
 
         public void action() {
             ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
-            msg.setContent("Connection working!");
+            msg.setContent("I have : " + m_slots + "slots.");
 
             //for (int i = 1; i <= 2; i++) {
-                msg.addReceiver(new AID("Items:" + OrganisorAgent.class.getName() , AID.ISLOCALNAME));
+                msg.addReceiver(new AID("Organiser" + OrganisorAgent.class.getName() , AID.ISLOCALNAME));
             //}
             try {
                 sleep(1000);
@@ -85,5 +87,4 @@ public class MyBehaviour extends SimpleBehaviour {
             return finished;
         }
     }
-    
 }
