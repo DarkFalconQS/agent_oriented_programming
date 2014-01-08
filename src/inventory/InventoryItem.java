@@ -16,10 +16,10 @@ public class InventoryItem {
   private RackAgent m_location;
   private int m_size;
 
-  public InventoryItem(String name, int number_of, RackAgent new_location) {
+  public InventoryItem(String name, int number_of, int size) {
     m_itemName = name;
     m_amount = number_of;
-    m_location = new_location;
+    m_size = size;
   }
 
   public int getSize() {

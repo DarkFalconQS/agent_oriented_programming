@@ -9,10 +9,7 @@ import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.*;
 import jade.lang.acl.ACLMessage;
-import static java.lang.Thread.sleep;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -46,21 +43,11 @@ public class RackAgent extends Agent {
                         + getLocalName() + " <- "
                         + msg.getContent()
                 );
-                m_msg = msg.getContent();
-                if (m_msg == "Connection working!") {
-                    sendACLMessage("Hi " + msg.getSender() + " from " + getLocalName());
-                }
+                msg.setReplyWith("Hi " + msg.getSender() + " from " + getLocalName());
+                m_a.send(msg);
             }
             block();
         }
-    }
-
-    public void sendACLMessage(String content) {
-        ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
-        msg.setContent(content);
-
-        msg.addReceiver(new AID("Global", AID.ISLOCALNAME));
-        this.send(msg);
     }
 
     public RackAgent() {
