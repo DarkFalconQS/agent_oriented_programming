@@ -62,10 +62,6 @@ public class RackAgent extends Agent {
     this.m_items = items;
   }
 
-  protected void setup() {
-
-  }
-
   private void checkItems() {
 
   }
