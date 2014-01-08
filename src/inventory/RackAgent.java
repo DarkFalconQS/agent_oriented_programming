@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class RackAgent extends Agent {
   private int m_route;
   private String m_name;
-  private ArrayList<InventoryItem> m_items;
+//  private ArrayList<InventoryItem> m_items;
   private int m_slots;
 
   public void setup() {
@@ -65,13 +65,13 @@ public class RackAgent extends Agent {
     this.m_slots = slots;
   }
 
-  public ArrayList<InventoryItem> getItems() {
-    return m_items;
-  }
-
-  public void setItems(ArrayList<InventoryItem> items) {
-    this.m_items = items;
-  }
+//  public ArrayList<InventoryItem> getItems() {
+//    return m_items;
+//  }
+//
+//  public void setItems(ArrayList<InventoryItem> items) {
+//    this.m_items = items;
+//  }
 
   private void checkItems() {
 
