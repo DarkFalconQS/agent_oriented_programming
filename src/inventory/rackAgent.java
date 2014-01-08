@@ -7,7 +7,7 @@ import jade.core.behaviours.*;
 import java.util.ArrayList;
 
 public class RackAgent extends Agent {
-  private Path m_route;
+  private int m_route;
   private String m_name;
   private ArrayList<InventoryItem> m_items;
 
@@ -25,16 +25,16 @@ public class RackAgent extends Agent {
     });
   }
 
-  public RackAgent(String name, Path route) {
+  public RackAgent(String name, int route) {
     m_name = name;
-    m_path = path;
+    m_int = int;
   }
 
-  public Path getRoute() {
+  public int getRoute() {
     return m_route;
   }
 
-  public void setRoute(Path route) {
+  public void setRoute(int route) {
     this.m_route = route;
   }
 
