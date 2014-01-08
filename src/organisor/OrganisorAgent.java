@@ -3,80 +3,110 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package organisor;
 
-import jade.core.AID;
-import jade.core.Agent;
 import jade.core.behaviours.*;
 import jade.lang.acl.ACLMessage;
 import inventory.InventoryItem;
+import jade.core.AID;
 import jade.core.Agent;
 import java.util.ArrayList;
-import static java.lang.Thread.sleep;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author Michaël
  */
 public class OrganisorAgent extends Agent {
-  private int m_slots;
-  private ArrayList<InventoryItem> m_items;
 
-  protected void setup() {
-    addBehaviour( new MyBehaviour (this) );
-  }
+    private int m_slots;
+    private ArrayList<InventoryItem> m_items;
+    private InventoryItem trade_item;
 
-  private void getItem() {
+    protected void setup() {
+    }
 
-  }
-
-  public int getSlots() {
-    return m_slots;
-  }
-
-  public void setSlots(int slots) {
-    this.m_slots = slots;
-  }
-
-  public ArrayList<InventoryItem> getItems() {
-    return m_items;
-  }
-
-  public void setItems(ArrayList<InventoryItem> items) {
-    this.m_items = items;
-  }
-
-  public void addItem(InventoryItem item) {
-    m_items.add(item);
-  }
-
-  private void findNewLocation() {
-
-  }
-public class MyBehaviour extends SimpleBehaviour {
-        private Agent m_a;
+    private void getItem() {
+        setTradeItem("Samsung USB 16GB green", 20);
+        addBehaviour(new GetBehaviour(this, trade_item));
+    }
+    
+    public void setTradeItem(String name, int amount) {
+        trade_item.setItemName(name);
+        trade_item.setAmount(amount);
+    }
+    
+    public InventoryItem getTradeItem() {
+        return trade_item;
+    }
+    
+    private void giveItem() {
         
-        public MyBehaviour(Agent a) {
+    }
+
+    public int getSlots() {
+        return m_slots;
+    }
+
+    public void setSlots(int slots) {
+        this.m_slots = slots;
+    }
+
+    public ArrayList<InventoryItem> getItems() {
+        return m_items;
+    }
+
+    public void setItems(ArrayList<InventoryItem> items) {
+        this.m_items = items;
+    }
+
+    public void addItem(InventoryItem item) {
+        m_items.add(item);
+    }
+
+    private void findNewLocation() {
+
+    }
+
+    public class PutBehaviour extends SimpleBehaviour {
+
+        private Agent m_a;
+
+        public PutBehaviour(Agent a) {
             super(a);
             m_a = a;
         }
 
         public void action() {
-            ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
-            msg.setContent("I have : " + m_slots + "slots.");
+        }
 
-            //for (int i = 1; i <= 2; i++) {
-                msg.addReceiver(new AID("Organiser" + OrganisorAgent.class.getName() , AID.ISLOCALNAME));
-            //}
-            try {
-                sleep(1000);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(OrganisorAgent.class.getName()).log(Level.SEVERE, null, ex);
+        private boolean finished = false;
+
+        public boolean done() {
+            return finished;
+        }
+    }
+
+    public class GetBehaviour extends SimpleBehaviour {
+
+        private Agent m_a;
+        private ACLMessage msg;
+        private InventoryItem m_item;
+
+        public GetBehaviour(Agent a, InventoryItem item) {
+            super(a);
+            m_a = a;
+            m_item = item;
+        }
+
+        public void action() {
+            msg = new ACLMessage(ACLMessage.REQUEST);
+            msg.setContent("Name: " + m_item.getItemName() + "; Amount: " + m_item.getAmount() + ";");
+
+            for (int i = 1; i <= 1; i++) {
+                msg.addReceiver(new AID("Rack" + i, AID.ISLOCALNAME));
             }
             m_a.send(msg);
+            System.out.println(msg);
         }
 
         private boolean finished = false;
