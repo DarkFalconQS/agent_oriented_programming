@@ -27,7 +27,7 @@ public class RackAgent extends Agent {
 
   public RackAgent(String name, int route) {
     m_name = name;
-    m_int = int;
+    m_int = route;
   }
 
   public int getRoute() {
