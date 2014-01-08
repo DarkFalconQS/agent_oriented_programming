@@ -1,12 +1,22 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package inventory;
 
+/**
+ *
+ * @author Michaël
+ */
 public class InventoryItem {
   private String m_itemName;
   private int m_amount;
   private RackAgent m_location;
   private int m_size;
 
-  public InventoryItem(String name, int number_of, Rack new_location) {
+  public InventoryItem(String name, int number_of, RackAgent new_location) {
     m_itemName = name;
     m_amount = number_of;
     m_location = new_location;
@@ -24,7 +34,7 @@ public class InventoryItem {
     return m_amount;
   }
 
-  public Rack getLocation() {
+  public RackAgent getLocation() {
     return m_location;
   }
 

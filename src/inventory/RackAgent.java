@@ -1,15 +1,26 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package inventory;
 
 import jade.core.Agent;
-import jade.core.AID;
-import jade.lang.acl.*;
-import jade.core.behaviours.*;
+import jade.core.behaviours.CyclicBehaviour;
+import jade.lang.acl.ACLMessage;
 import java.util.ArrayList;
+
+/**
+ *
+ * @author Michaël
+ */
 
 public class RackAgent extends Agent {
   private int m_route;
   private String m_name;
   private ArrayList<InventoryItem> m_items;
+  private int m_slots;
 
   public void setup() {
     addBehaviour(new CyclicBehaviour(this) {
@@ -27,7 +38,7 @@ public class RackAgent extends Agent {
 
   public RackAgent(String name, int route) {
     m_name = name;
-    m_int = route;
+    m_route = route;
   }
 
   public int getRoute() {
@@ -38,7 +49,7 @@ public class RackAgent extends Agent {
     this.m_route = route;
   }
 
-  public String getName() {
+  public String getMyName() {
     return m_name;
   }
 
@@ -47,7 +58,7 @@ public class RackAgent extends Agent {
   }
 
   public int getSlots() {
-    return slots;
+    return m_slots;
   }
 
   public void setSlots(int slots) {
