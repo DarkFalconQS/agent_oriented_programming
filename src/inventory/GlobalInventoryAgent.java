@@ -55,7 +55,7 @@ public class GlobalInventoryAgent extends Agent {
             ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
             msg.setContent("Connection working!");
 
-            for (int i = 1; i <= 2; i++) {
+            for (int i = 1; i < 2; i++) {
                 msg.addReceiver(new AID("Rack" + i, AID.ISLOCALNAME));
             }
             m_a.send(msg);

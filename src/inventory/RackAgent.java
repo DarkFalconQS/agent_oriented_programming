@@ -7,7 +7,7 @@
 package inventory;
 
 import jade.core.Agent;
-import jade.core.behaviours.CyclicBehaviour;
+import jade.core.behaviours.*;
 import jade.lang.acl.ACLMessage;
 import java.util.ArrayList;
 
@@ -19,26 +19,35 @@ import java.util.ArrayList;
 public class RackAgent extends Agent {
   private int m_route;
   private String m_name;
-//  private ArrayList<InventoryItem> m_items;
+  private ArrayList<InventoryItem> m_items;
   private int m_slots;
 
   public void setup() {
-    addBehaviour(new CyclicBehaviour(this) {
-      public void action() {
-        ACLMessage msg = receive();
-        if(msg != null)
-          System.out.println(" - " + 
-            getLocalName() + " <- " +
-            msg.getContent() 
-          );
-        block();
-      }
-    });
+    addBehaviour(new MyBehaviour(this) );
+  }
+  
+  public class MyBehaviour extends CyclicBehaviour {
+        private Agent m_a;
+        
+        public MyBehaviour(Agent a) {
+            super(a);
+            m_a = a;
+        }
+        
+        public void action() {
+          ACLMessage msg = m_a.receive();
+          if(msg != null)
+            System.out.println(" - " + 
+              getLocalName() + " <- " +
+              msg.getContent() 
+            );
+          block();
+        }
   }
 
-  public RackAgent(String name, int route) {
-    m_name = name;
-    m_route = route;
+  public RackAgent() {
+    m_name = "name";
+    m_route = 1;
   }
 
   public int getRoute() {
@@ -65,13 +74,13 @@ public class RackAgent extends Agent {
     this.m_slots = slots;
   }
 
-//  public ArrayList<InventoryItem> getItems() {
-//    return m_items;
-//  }
-//
-//  public void setItems(ArrayList<InventoryItem> items) {
-//    this.m_items = items;
-//  }
+  public ArrayList<InventoryItem> getItems() {
+    return m_items;
+  }
+
+  public void setItems(ArrayList<InventoryItem> items) {
+    this.m_items = items;
+  }
 
   private void checkItems() {
 
