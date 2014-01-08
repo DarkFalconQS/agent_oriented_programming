@@ -6,3 +6,5 @@ nbproject/
 *.war
 *.ear
 /bin
+/dist/
+/build/
