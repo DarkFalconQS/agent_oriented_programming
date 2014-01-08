@@ -9,7 +9,10 @@ import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.*;
 import jade.lang.acl.ACLMessage;
+import static java.lang.Thread.sleep;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -55,8 +58,13 @@ public class GlobalInventoryAgent extends Agent {
             ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
             msg.setContent("Connection working!");
 
-            for (int i = 1; i < 2; i++) {
+            for (int i = 1; i <= 2; i++) {
                 msg.addReceiver(new AID("Rack" + i, AID.ISLOCALNAME));
+            }
+            try {
+                sleep(1000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(GlobalInventoryAgent.class.getName()).log(Level.SEVERE, null, ex);
             }
             m_a.send(msg);
         }
