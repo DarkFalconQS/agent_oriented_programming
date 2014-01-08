@@ -15,7 +15,7 @@ import java.util.ArrayList;
  *
  * @author Michaël
  */
-public class GlobalInventoryAgent {
+public class GlobalInventoryAgent extends Agent {
 
     private ArrayList<RackAgent> m_racks;
 
@@ -24,7 +24,7 @@ public class GlobalInventoryAgent {
     }
 
     protected void setup() {
-        addBehaviour();
+        addBehaviour( new MyBehaviour (this) );
     }
 
     public ArrayList<RackAgent> getRacks() {
