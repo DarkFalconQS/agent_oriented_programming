@@ -43,8 +43,15 @@ public class RackAgent extends Agent {
                         + getLocalName() + " <- "
                         + msg.getContent()
                 );
-                msg.setReplyWith("Hi " + msg.getSender() + " from " + getLocalName());
-                m_a.send(msg);
+                //Message from michael?
+                //msg.setReplyWith("Hi " + msg.getSender() + " from " + getLocalName());
+                //m_a.send(msg);
+                // test van jan
+                ACLMessage reply = msg.createReply();
+                reply.setPerformative(ACLMessage.PROPOSE);
+                reply.setContent("reply something");
+                m_a.send(reply);
+                
             }
             block();
         }
