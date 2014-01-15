@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package behaviours;
 
 import inventory.InventoryItem;
@@ -15,14 +16,14 @@ import jade.lang.acl.ACLMessage;
  *
  * @author Michaël
  */
-public class GetBehaviour extends SimpleBehaviour {
+public class AvailableBehaviour extends SimpleBehaviour {
 
   private Agent m_a;
   private ACLMessage msg;
   private InventoryItem m_item;
   private AID m_aid;
 
-  public GetBehaviour(Agent a, InventoryItem item, AID aid) {
+  public AvailableBehaviour(Agent a, InventoryItem item, AID aid) {
     super(a);
     m_a = a;
     m_aid = aid;
@@ -31,13 +32,11 @@ public class GetBehaviour extends SimpleBehaviour {
 
   @Override
   public void action() {
-    msg = new ACLMessage(ACLMessage.CONFIRM);
+    msg = new ACLMessage(ACLMessage.REQUEST);
     msg.setContent("Name: " + m_item.getItemName() + "; Amount: " + m_item.getAmount() + ";");
     msg.addReceiver(m_aid);
     m_a.send(msg);
     System.out.println(msg);
-
-    ACLMessage reply = receive_msg();
   }
 
   private boolean finished = false;
@@ -47,14 +46,4 @@ public class GetBehaviour extends SimpleBehaviour {
     return finished;
   }
 
-  private ACLMessage receive_msg() {
-    ACLMessage msg = m_a.receive();
-    if (msg != null) {
-      System.out.println(" - "
-	  + m_a.getLocalName() + " <- "
-	  + msg.getContent()
-      );
-    }
-    return msg;
-  }
 }

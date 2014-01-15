@@ -5,8 +5,11 @@
  */
 package behaviours;
 
+import inventory.InventoryItem;
+import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.SimpleBehaviour;
+import jade.lang.acl.ACLMessage;
 
 /**
  *
@@ -15,14 +18,23 @@ import jade.core.behaviours.SimpleBehaviour;
 public class CheckBehaviour extends SimpleBehaviour {
 
   private Agent m_a;
+  private ACLMessage msg;
+  private InventoryItem m_item;
+  private AID m_aid;
 
-  public CheckBehaviour(Agent a) {
-
+  public CheckBehaviour(Agent a, InventoryItem item, AID aid) {
+    super(a);
+    m_a = a;
+    m_aid = aid;
+    m_item = item;
   }
 
   @Override
   public void action() {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    msg = new ACLMessage(ACLMessage.REQUEST);
+    msg.setContent("Name: " + m_item.getItemName() + "; Amount: " + m_item.getAmount() + ";");
+    msg.addReceiver(m_aid);
+    m_a.send(msg);
   }
 
   private boolean finished = false;
