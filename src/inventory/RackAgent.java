@@ -9,6 +9,8 @@ import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -44,6 +46,11 @@ public class RackAgent extends Agent {
 	    + getLocalName() + " <- "
 	    + msg.getContent()
 	);
+	Pattern name = Pattern.compile("Name: \\w+(?:\\s*,\\s*\\w+)*");
+	Pattern amount = Pattern.compile("Amount: \\w+(?:\\s*,\\s*\\w+)*");
+	Matcher m = name.matcher((CharSequence) msg);
+	Matcher a = amount.matcher((CharSequence) msg);
+	System.out.println("Name: " + m.group(0) + ", Amount: " + a.group(0));
 	msg.setReplyWith("Hi " + msg.getSender() + " from " + getLocalName());
 	m_a.send(msg);
       }

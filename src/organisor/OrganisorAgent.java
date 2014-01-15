@@ -132,6 +132,8 @@ public class OrganisorAgent extends Agent {
       }
       m_a.send(msg);
       System.out.println(msg);
+
+      ACLMessage reply = receive_msg();
     }
 
     private boolean finished = false;
@@ -139,6 +141,17 @@ public class OrganisorAgent extends Agent {
     @Override
     public boolean done() {
       return finished;
+    }
+
+    private ACLMessage receive_msg() {
+      ACLMessage msg = m_a.receive();
+      if (msg != null) {
+	System.out.println(" - "
+	    + getLocalName() + " <- "
+	    + msg.getContent()
+	);
+      }
+      return msg;
     }
   }
 }
