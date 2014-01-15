@@ -32,7 +32,7 @@ public class AvailableBehaviour extends SimpleBehaviour {
 
   @Override
   public void action() {
-    ACLMessage m_msg = receive_msg();
+    InventoryItem item = receive_msg();
     msg = new ACLMessage(ACLMessage.ACCEPT_PROPOSAL);
     msg.setContent("Name: " + m_item.getItemName() + "; Amount: " + m_item.getAmount() + ";");
     System.out.println("Protocol: " + msg.getProtocol());
@@ -48,16 +48,17 @@ public class AvailableBehaviour extends SimpleBehaviour {
     return finished;
   }
 
-  private ACLMessage receive_msg() {
-    ACLMessage msg = m_a.receive();
-    if (msg != null) {
-      String content = msg.getContent();
+  private InventoryItem receive_msg() {
+    ACLMessage m_msg = m_a.receive();
+    InventoryItem item = null;
+    if (m_msg != null) {
+      String content = m_msg.getContent();
       content_list = content.split("Name: ");
       content_list = content_list[1].split(", Amount: ");
-      InventoryItem item = new InventoryItem(content_list[0], Integer.parseInt(content_list[1]), 0);
+      item = new InventoryItem(content_list[0], Integer.parseInt(content_list[1]), 0);
       System.out.println("Name: " + item.getItemName() + ", Amount: " + item.getAmount());
     }
     block();
-    return msg;
+    return item;
   }
 }
