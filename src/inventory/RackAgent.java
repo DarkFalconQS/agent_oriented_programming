@@ -9,8 +9,6 @@ import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  *
@@ -32,6 +30,7 @@ public class RackAgent extends Agent {
 
     private Agent m_a;
     private String m_msg;
+    private String[] content_list;
 
     public MyBehaviour(Agent a) {
       super(a);
@@ -42,15 +41,11 @@ public class RackAgent extends Agent {
     public void action() {
       ACLMessage msg = m_a.receive();
       if (msg != null) {
-	System.out.println(" - "
-	    + getLocalName() + " <- "
-	    + msg.getContent()
-	);
-	Pattern name = Pattern.compile("Name: \\w+(?:\\s*,\\s*\\w+)*");
-	Pattern amount = Pattern.compile("Amount: \\w+(?:\\s*,\\s*\\w+)*");
-	Matcher m = name.matcher((CharSequence) msg);
-	Matcher a = amount.matcher((CharSequence) msg);
-	System.out.println("Name: " + m.group(0) + ", Amount: " + a.group(0));
+	String content = msg.getContent();
+	content_list = content.split("Name: ");
+	content_list = content_list[1].split(", Amount: ");
+	InventoryItem item = new InventoryItem(content_list[0], Integer.parseInt(content_list[1]), 0);
+	System.out.println("Name: " + item.getItemName() + ", Amount: " + item.getAmount());
 	msg.setReplyWith("Hi " + msg.getSender() + " from " + getLocalName());
 	m_a.send(msg);
       }
