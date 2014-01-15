@@ -16,90 +16,83 @@ import java.util.ArrayList;
  */
 public class RackAgent extends Agent {
 
-    private int m_route;
-    private String m_name;
-    private ArrayList<InventoryItem> m_items;
-    private int m_slots;
+  private int m_route;
+  private String m_name;
+  private ArrayList<InventoryItem> m_items;
+  private int m_slots;
+
+  @Override
+  public void setup() {
+    addBehaviour(new MyBehaviour(this));
+  }
+
+  public class MyBehaviour extends CyclicBehaviour {
+
+    private Agent m_a;
+    private String m_msg;
+
+    public MyBehaviour(Agent a) {
+      super(a);
+      m_a = a;
+    }
 
     @Override
-    public void setup() {
-        addBehaviour(new MyBehaviour(this));
+    public void action() {
+      ACLMessage msg = m_a.receive();
+      if (msg != null) {
+	System.out.println(" - "
+	    + getLocalName() + " <- "
+	    + msg.getContent()
+	);
+	msg.setReplyWith("Hi " + msg.getSender() + " from " + getLocalName());
+	m_a.send(msg);
+      }
+      block();
     }
+  }
 
-    public class MyBehaviour extends CyclicBehaviour {
+  public RackAgent() {
+    m_name = "name";
+    m_route = 1;
+  }
 
-        private Agent m_a;
-        private String m_msg;
+  public int getRoute() {
+    return m_route;
+  }
 
-        public MyBehaviour(Agent a) {
-            super(a);
-            m_a = a;
-        }
+  public void setRoute(int route) {
+    this.m_route = route;
+  }
 
-        @Override
-        public void action() {
-            ACLMessage msg = m_a.receive();
-            if (msg != null) {
-                System.out.println(" - "
-                        + getLocalName() + " <- "
-                        + msg.getContent()
-                );
-                //Message from michael?
-                //msg.setReplyWith("Hi " + msg.getSender() + " from " + getLocalName());
-                //m_a.send(msg);
-                // test van jan
-                ACLMessage reply = msg.createReply();
-                reply.setPerformative(ACLMessage.PROPOSE);
-                reply.setContent("reply something");
-                m_a.send(reply);
+  public String getMyName() {
+    return m_name;
+  }
 
-            }
-            block();
-        }
-    }
+  public void setName(String name) {
+    this.m_name = name;
+  }
 
-    public RackAgent() {
-        m_name = "name";
-        m_route = 1;
-    }
+  public int getSlots() {
+    return m_slots;
+  }
 
-    public int getRoute() {
-        return m_route;
-    }
+  public void setSlots(int slots) {
+    this.m_slots = slots;
+  }
 
-    public void setRoute(int route) {
-        this.m_route = route;
-    }
+  public ArrayList<InventoryItem> getItems() {
+    return m_items;
+  }
 
-    public String getMyName() {
-        return m_name;
-    }
+  public void setItems(ArrayList<InventoryItem> items) {
+    this.m_items = items;
+  }
 
-    public void setName(String name) {
-        this.m_name = name;
-    }
+  private void checkItems() {
 
-    public int getSlots() {
-        return m_slots;
-    }
+  }
 
-    public void setSlots(int slots) {
-        this.m_slots = slots;
-    }
+  private void reportItem() {
 
-    public ArrayList<InventoryItem> getItems() {
-        return m_items;
-    }
-
-    public void setItems(ArrayList<InventoryItem> items) {
-        this.m_items = items;
-    }
-
-    private void checkItems() {
-
-    }
-
-    private void reportItem() {
-
-    }
+  }
 }

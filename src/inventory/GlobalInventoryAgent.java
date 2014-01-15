@@ -20,91 +20,90 @@ import java.util.logging.Logger;
  */
 public class GlobalInventoryAgent extends Agent {
 
-    private ArrayList<RackAgent> m_racks;
+  private ArrayList<RackAgent> m_racks;
 
-    public GlobalInventoryAgent() {
-        m_racks = new ArrayList<>();
-    }
+  public GlobalInventoryAgent() {
+    m_racks = new ArrayList<>();
+  }
 
-    protected void setup() {
-        addBehaviour(new MyBehaviour(this));
-    }
+  protected void setup() {
+    addBehaviour(new MyBehaviour(this));
+  }
 
-    public ArrayList<RackAgent> getRacks() {
-        return m_racks;
-    }
+  public ArrayList<RackAgent> getRacks() {
+    return m_racks;
+  }
 
-    public void setRacks(ArrayList<RackAgent> racks) {
-        this.m_racks = racks;
-    }
+  public void setRacks(ArrayList<RackAgent> racks) {
+    this.m_racks = racks;
+  }
 
-    public void getInventory() {
-        /*yet to be determined what it returns*/
-    }
+  public void getInventory() {
+    /*yet to be determined what it returns*/
+  }
 
-    public void getRackAgents() {
-        /* check for all available rack agents */
-    }
+  public void getRackAgents() {
+    /* check for all available rack agents */
+  }
 
 //    public void renderItems() {
 //        InventoryItem item1 = enterItem("Refridgerator", 2, 2);
 //        InventoryItem item2 = enterItem("Samsung USB 16GB", 50, 1);
 //        InventoryItem item3 = enterItem("Philips Senseo", 8, 4);
 //    }
+  public InventoryItem enterItem(String name, int number_of, int size) {
+    InventoryItem item = new InventoryItem(name, number_of, size);
+    return item;
+  }
 
-    public InventoryItem enterItem(String name, int number_of, int size) {
-        InventoryItem item = new InventoryItem(name, number_of, size);
-        return item;
+  public class MyBehaviour extends SimpleBehaviour {
+
+    private Agent m_a;
+    private int step;
+    private ACLMessage msg;
+
+    public MyBehaviour(Agent a) {
+      super(a);
+      m_a = a;
+      step = 0;
     }
 
-    public class MyBehaviour extends SimpleBehaviour {
+    @Override
+    public void action() {
+      switch (step) {
+	case 0:
+	  msg = new ACLMessage(ACLMessage.INFORM);
+	  InventoryItem item = enterItem("Samsung USB 16GB", 50, 1);
+	  msg.setContent("Name: " + item.getItemName() + "; Amount: " + item.getAmount() + "; Size: " + item.getSize() + ";");
 
-        private Agent m_a;
-        private int step;
-        private ACLMessage msg;
+	  for (int i = 1; i <= 1; i++) {
+	    msg.addReceiver(new AID("Rack" + i, AID.ISLOCALNAME));
+	  }
+	  try {
+	    sleep(1000);
+	  } catch (InterruptedException ex) {
+	    Logger.getLogger(GlobalInventoryAgent.class.getName()).log(Level.SEVERE, null, ex);
+	  }
+	  m_a.send(msg);
+	  step = 1;
 
-        public MyBehaviour(Agent a) {
-            super(a);
-            m_a = a;
-            step = 0;
-        }
-
-        @Override
-        public void action() {
-            switch (step) {
-                case 0:
-                    msg = new ACLMessage(ACLMessage.INFORM);
-                    InventoryItem item = enterItem("Samsung USB 16GB", 50, 1);
-                    msg.setContent("Name: " + item.getItemName() + "; Amount: " + item.getAmount() + "; Size: " + item.getSize() + ";");
-
-                    for (int i = 1; i <= 1; i++) {
-                        msg.addReceiver(new AID("Rack" + i, AID.ISLOCALNAME));
-                    }
-                    try {
-                        sleep(1000);
-                    } catch (InterruptedException ex) {
-                        Logger.getLogger(GlobalInventoryAgent.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    m_a.send(msg);
-                    step = 1;
-
-                case 1:
-                    msg = m_a.receive();
-                    if (msg != null) {
-                        System.out.println(" - "
-                                + getLocalName() + " <- "
-                                + msg.getContent()
-                        );
-                    }
-                    block();
-            }
-        }
-
-        private boolean finished = false;
-
-        @Override
-        public boolean done() {
-            return finished;
-        }
+	case 1:
+	  msg = m_a.receive();
+	  if (msg != null) {
+	    System.out.println(" - "
+		+ getLocalName() + " <- "
+		+ msg.getContent()
+	    );
+	  }
+	  block();
+      }
     }
+
+    private boolean finished = false;
+
+    @Override
+    public boolean done() {
+      return finished;
+    }
+  }
 }
