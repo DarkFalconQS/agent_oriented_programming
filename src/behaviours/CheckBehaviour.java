@@ -44,4 +44,14 @@ public class CheckBehaviour extends SimpleBehaviour {
     return finished;
   }
 
+  private ACLMessage receive_msg() {
+    ACLMessage msg = m_a.receive();
+    if (msg != null) {
+      System.out.println(" - "
+	  + m_a.getLocalName() + " <- "
+	  + msg.getContent()
+      );
+    }
+    return msg;
+  }
 }

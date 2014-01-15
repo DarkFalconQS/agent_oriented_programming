@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package behaviours;
 
 import inventory.InventoryItem;
@@ -22,6 +21,7 @@ public class AvailableBehaviour extends SimpleBehaviour {
   private ACLMessage msg;
   private InventoryItem m_item;
   private AID m_aid;
+  private String[] content_list;
 
   public AvailableBehaviour(Agent a, InventoryItem item, AID aid) {
     super(a);
@@ -32,8 +32,10 @@ public class AvailableBehaviour extends SimpleBehaviour {
 
   @Override
   public void action() {
-    msg = new ACLMessage(ACLMessage.REQUEST);
+    ACLMessage m_msg = receive_msg();
+    msg = new ACLMessage(ACLMessage.ACCEPT_PROPOSAL);
     msg.setContent("Name: " + m_item.getItemName() + "; Amount: " + m_item.getAmount() + ";");
+    System.out.println("Protocol: " + msg.getProtocol());
     msg.addReceiver(m_aid);
     m_a.send(msg);
     System.out.println(msg);
@@ -46,4 +48,16 @@ public class AvailableBehaviour extends SimpleBehaviour {
     return finished;
   }
 
+  private ACLMessage receive_msg() {
+    ACLMessage msg = m_a.receive();
+    if (msg != null) {
+      String content = msg.getContent();
+      content_list = content.split("Name: ");
+      content_list = content_list[1].split(", Amount: ");
+      InventoryItem item = new InventoryItem(content_list[0], Integer.parseInt(content_list[1]), 0);
+      System.out.println("Name: " + item.getItemName() + ", Amount: " + item.getAmount());
+    }
+    block();
+    return msg;
+  }
 }

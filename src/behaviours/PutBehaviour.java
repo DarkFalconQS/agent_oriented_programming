@@ -7,6 +7,7 @@ package behaviours;
 
 import jade.core.Agent;
 import jade.core.behaviours.SimpleBehaviour;
+import jade.lang.acl.ACLMessage;
 
 /**
  *
@@ -30,5 +31,16 @@ public class PutBehaviour extends SimpleBehaviour {
   @Override
   public boolean done() {
     return finished;
+  }
+
+  private ACLMessage receive_msg() {
+    ACLMessage msg = m_a.receive();
+    if (msg != null) {
+      System.out.println(" - "
+	  + m_a.getLocalName() + " <- "
+	  + msg.getContent()
+      );
+    }
+    return msg;
   }
 }
