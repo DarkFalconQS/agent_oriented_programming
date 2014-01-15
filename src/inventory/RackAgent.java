@@ -5,9 +5,8 @@
  */
 package inventory;
 
-import jade.core.AID;
 import jade.core.Agent;
-import jade.core.behaviours.*;
+import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import java.util.ArrayList;
 
@@ -22,6 +21,7 @@ public class RackAgent extends Agent {
     private ArrayList<InventoryItem> m_items;
     private int m_slots;
 
+    @Override
     public void setup() {
         addBehaviour(new MyBehaviour(this));
     }
@@ -36,6 +36,7 @@ public class RackAgent extends Agent {
             m_a = a;
         }
 
+        @Override
         public void action() {
             ACLMessage msg = m_a.receive();
             if (msg != null) {
@@ -51,7 +52,7 @@ public class RackAgent extends Agent {
                 reply.setPerformative(ACLMessage.PROPOSE);
                 reply.setContent("reply something");
                 m_a.send(reply);
-                
+
             }
             block();
         }

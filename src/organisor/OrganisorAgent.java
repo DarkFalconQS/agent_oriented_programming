@@ -5,11 +5,11 @@
  */
 package organisor;
 
-import jade.core.behaviours.*;
-import jade.lang.acl.ACLMessage;
 import inventory.InventoryItem;
 import jade.core.AID;
 import jade.core.Agent;
+import jade.core.behaviours.SimpleBehaviour;
+import jade.lang.acl.ACLMessage;
 import java.util.ArrayList;
 
 /**
@@ -29,18 +29,18 @@ public class OrganisorAgent extends Agent {
         setTradeItem("Samsung USB 16GB green", 20);
         addBehaviour(new GetBehaviour(this, trade_item));
     }
-    
+
     public void setTradeItem(String name, int amount) {
         trade_item.setItemName(name);
         trade_item.setAmount(amount);
     }
-    
+
     public InventoryItem getTradeItem() {
         return trade_item;
     }
-    
+
     private void giveItem() {
-        
+
     }
 
     public int getSlots() {
@@ -67,6 +67,27 @@ public class OrganisorAgent extends Agent {
 
     }
 
+    public class CheckBehaviour extends SimpleBehaviour {
+        private Agent m_a;
+
+        public CheckBehaviour(Agent a) {
+
+        }
+
+        @Override
+        public void action() {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+
+        private boolean finished = false;
+
+        @Override
+        public boolean done() {
+            return finished;
+        }
+
+    }
+
     public class PutBehaviour extends SimpleBehaviour {
 
         private Agent m_a;
@@ -76,11 +97,13 @@ public class OrganisorAgent extends Agent {
             m_a = a;
         }
 
+        @Override
         public void action() {
         }
 
         private boolean finished = false;
 
+        @Override
         public boolean done() {
             return finished;
         }
@@ -98,6 +121,7 @@ public class OrganisorAgent extends Agent {
             m_item = item;
         }
 
+        @Override
         public void action() {
             msg = new ACLMessage(ACLMessage.REQUEST);
             msg.setContent("Name: " + m_item.getItemName() + "; Amount: " + m_item.getAmount() + ";");
@@ -111,6 +135,7 @@ public class OrganisorAgent extends Agent {
 
         private boolean finished = false;
 
+        @Override
         public boolean done() {
             return finished;
         }

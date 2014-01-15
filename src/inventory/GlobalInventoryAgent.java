@@ -7,7 +7,7 @@ package inventory;
 
 import jade.core.AID;
 import jade.core.Agent;
-import jade.core.behaviours.*;
+import jade.core.behaviours.SimpleBehaviour;
 import jade.lang.acl.ACLMessage;
 import static java.lang.Thread.sleep;
 import java.util.ArrayList;
@@ -69,6 +69,7 @@ public class GlobalInventoryAgent extends Agent {
             step = 0;
         }
 
+        @Override
         public void action() {
             switch (step) {
                 case 0:
@@ -101,6 +102,7 @@ public class GlobalInventoryAgent extends Agent {
 
         private boolean finished = false;
 
+        @Override
         public boolean done() {
             return finished;
         }
