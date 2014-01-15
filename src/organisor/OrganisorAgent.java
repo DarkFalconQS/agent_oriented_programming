@@ -9,7 +9,6 @@ import behaviours.GetBehaviour;
 import inventory.InventoryItem;
 import jade.core.AID;
 import jade.core.Agent;
-import jade.core.behaviours.SimpleBehaviour;
 import java.util.ArrayList;
 
 /**
@@ -24,6 +23,7 @@ public class OrganisorAgent extends Agent {
 
   protected void setup() {
   }
+
 
   private void getItem() {
     setTradeItem("Samsung USB 16GB green", 20);
@@ -66,48 +66,5 @@ public class OrganisorAgent extends Agent {
 
   private void findNewLocation() {
 
-  }
-
-  public class CheckBehaviour extends SimpleBehaviour {
-
-    private Agent m_a;
-
-    public CheckBehaviour(Agent a) {
-
-    }
-
-    @Override
-    public void action() {
-      throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private boolean finished = false;
-
-    @Override
-    public boolean done() {
-      return finished;
-    }
-
-  }
-
-  public class PutBehaviour extends SimpleBehaviour {
-
-    private Agent m_a;
-
-    public PutBehaviour(Agent a) {
-      super(a);
-      m_a = a;
-    }
-
-    @Override
-    public void action() {
-    }
-
-    private boolean finished = false;
-
-    @Override
-    public boolean done() {
-      return finished;
-    }
   }
 }
