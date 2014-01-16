@@ -24,6 +24,9 @@ public class RackAgent extends Agent {
   @Override
   public void setup() {
     addBehaviour(new MyBehaviour(this));
+    ArrayList lol = new ArrayList<>();
+	 lol.add(new InventoryItem("Xbox", 5000, 0));
+     setItems(lol);
   }
 
   public class MyBehaviour extends CyclicBehaviour {
@@ -41,13 +44,28 @@ public class RackAgent extends Agent {
     public void action() {
       ACLMessage msg = m_a.receive();
       if (msg != null) {
-	String content = msg.getContent();
+        String content = msg.getContent();
 	content_list = content.split("Name: ");
 	content_list = content_list[1].split(", Amount: ");
-	InventoryItem item = new InventoryItem(content_list[0], Integer.parseInt(content_list[1]), 0);
-	System.out.println("Name: " + item.getItemName() + ", Amount: " + item.getAmount());
+        if (msg.getPerformative() == ACLMessage.PROPOSE) {
+              // We worden hier een Item geboden. Past hij, willen we hem?
+              // Response moet worde ACLMessage.ACCEPT_PROPOSAL zodat de ander niet een andere rack hoefd te zoeken
+             // vervolgens het nieuwe totaal melden... denk ik. ~nico
+            InventoryItem item = new InventoryItem(content_list[0], Integer.parseInt(content_list[1]), 0);
+            System.out.println("Name: " + item.getItemName() + ", Amount: " + item.getAmount());
+	
+        }
+        if (msg.getPerformative() == ACLMessage.QUERY_IF) {
+              // Hebben wij dit? het mooiste is als het verschillende vragen kunnen worden
+              // Denk bijvoorbeeld aan die Switch in het boek voorbeeld ~nico
+            InventoryItem item = new InventoryItem(content_list[0], Integer.parseInt(content_list[1]), 0);
+            System.out.println("Name: " + item.getItemName() + ", Amount: " + item.getAmount());
+	
+        }
 	msg.setReplyWith("Hi " + msg.getSender() + " from " + getLocalName());
 	m_a.send(msg);
+        
+      
       }
       block();
     }
