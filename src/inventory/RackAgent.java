@@ -90,8 +90,13 @@ public class RackAgent extends Agent {
     this.m_items = items;
   }
 
+  // report item when amount is less then 50% of size
   private void checkItems() {
-
+      for (InventoryItem item : m_items) {
+          if((item.getSize()/2) > item.getAmount()){
+              reportItem();
+          }
+      }
   }
 
   private void reportItem() {

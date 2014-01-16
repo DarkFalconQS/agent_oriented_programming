@@ -38,8 +38,9 @@ public class GlobalInventoryAgent extends Agent {
     this.m_racks = racks;
   }
 
-  public void getInventory() {
+  public ArrayList<InventoryItem> getInventory() {
     /*yet to be determined what it returns*/
+      return null;
   }
 
   public void getRackAgents() {
