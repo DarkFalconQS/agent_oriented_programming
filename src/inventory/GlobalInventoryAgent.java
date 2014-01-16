@@ -21,6 +21,7 @@ import java.util.logging.Logger;
 public class GlobalInventoryAgent extends Agent {
 
   private ArrayList<RackAgent> m_racks;
+  private ArrayList<InventoryItem> m_items;
 
   public GlobalInventoryAgent() {
     m_racks = new ArrayList<>();
@@ -39,12 +40,20 @@ public class GlobalInventoryAgent extends Agent {
   }
 
   public ArrayList<InventoryItem> getInventory() {
-    /*yet to be determined what it returns*/
-      return null;
+      return m_items;
   }
 
   public void getRackAgents() {
     /* check for all available rack agents */
+  }
+  
+  public RackAgent getRackAgentFromItem(InventoryItem item){
+      for (InventoryItem m_item : m_items) {
+          if(m_item.equals(item)){
+              return m_item.getLocation();
+          }
+      }
+      return null;
   }
 
 //    public void renderItems() {

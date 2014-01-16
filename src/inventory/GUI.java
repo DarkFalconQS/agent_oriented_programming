@@ -9,8 +9,6 @@ package src.inventory;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
-
-
 /**
  *
  * @author janvanloenen
@@ -23,9 +21,7 @@ public class GUI extends javax.swing.JFrame {
      * Creates new form GUI
      */
     public GUI() {
-        initComponents();
-        
-        
+        initComponents();            
     }
     
     public void fillItemTable(){
