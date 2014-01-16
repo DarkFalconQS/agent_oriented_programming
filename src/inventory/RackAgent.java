@@ -52,13 +52,16 @@ public class RackAgent extends Agent {
               // Response moet worde ACLMessage.ACCEPT_PROPOSAL zodat de ander niet een andere rack hoefd te zoeken
              // vervolgens het nieuwe totaal melden... denk ik. ~nico
             InventoryItem item = new InventoryItem(content_list[0], Integer.parseInt(content_list[1]), 0);
-            System.out.println("Name: " + item.getItemName() + ", Amount: " + item.getAmount());
+            addItem(item);
+           // System.out.println("Name: " + item.getItemName() + ", Amount: " + item.getAmount());
 	
         }
         if (msg.getPerformative() == ACLMessage.QUERY_IF) {
               // Hebben wij dit? het mooiste is als het verschillende vragen kunnen worden
               // Denk bijvoorbeeld aan die Switch in het boek voorbeeld ~nico
-            InventoryItem item = new InventoryItem(content_list[0], Integer.parseInt(content_list[1]), 0);
+           // ArrayList lol = getItems();
+            InventoryItem item = m_items.get(0); // This gets the first element of the list, the one we just added
+            
             System.out.println("Name: " + item.getItemName() + ", Amount: " + item.getAmount());
 	
         }
@@ -106,6 +109,9 @@ public class RackAgent extends Agent {
 
   public void setItems(ArrayList<InventoryItem> items) {
     this.m_items = items;
+  }
+  public void addItem(InventoryItem item) {
+    this.m_items.add(item);
   }
 
   // report item when amount is less then 50% of size
