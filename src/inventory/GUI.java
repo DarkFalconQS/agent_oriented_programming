@@ -208,6 +208,9 @@ public class GUI extends javax.swing.JFrame {
         String name = jTextField1.getText();
         int amount = Integer.parseInt(jTextField2.getText());
         int size = Integer.parseInt(jTextField3.getText());
+        
+        inventory.InventoryItem item = new inventory.InventoryItem(name, amount, size);
+        // give item to the organiser?
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
