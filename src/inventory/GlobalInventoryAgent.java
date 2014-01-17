@@ -9,6 +9,7 @@ import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.SimpleBehaviour;
 import jade.lang.acl.ACLMessage;
+import jade.util.leap.Iterator;
 import static java.lang.Thread.sleep;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -54,6 +55,15 @@ public class GlobalInventoryAgent extends Agent {
           }
       }
       return null;
+  }
+  
+  public boolean checkItem(inventory.InventoryItem item){
+      for (inventory.InventoryItem m_item : m_items) {
+          if(m_item.getItemName() == item.getItemName()){
+              return true;
+          }
+      }
+      return false;
   }
 
 //    public void renderItems() {
@@ -105,25 +115,34 @@ public class GlobalInventoryAgent extends Agent {
 		+ msg.getContent()
 	    );
             
+            //DEBUG Item
+            item = enterItem("Samsung USB 16GB", 50, 1);
+            
+            ArrayList<AID> aidarray = (ArrayList<AID>) msg.getAllReplyTo();
               //check if item is available
-              if (true) {
+            
+            boolean haveItem = checkItem(item);
+            
+              if (haveItem) {
                   msg = new ACLMessage(ACLMessage.ACCEPT_PROPOSAL);
-                  // TODO: stuur alle gegeven van item terug
-                  item = enterItem("Samsung USB 16GB", 50, 1);
                   msg.setContent("Name: " + item.getItemName() + "; Amount: " + item.getAmount() + "; Size: " + item.getSize() + ";");
-                  // TODO: recieve agent
-                  msg.addReceiver(null);
+                  for (AID aid : aidarray) {
+                      msg.addReceiver(aid);
+                  }
                   m_a.send(msg);
               } else {
                   msg = new ACLMessage(ACLMessage.REJECT_PROPOSAL);
                   msg.setContent("We don't have that item");
-                  // TODO: recieve agent
-                  msg.addReceiver(null);
+                  for (AID aid : aidarray) {
+                      msg.addReceiver(aid);
+                  }
                   m_a.send(msg);
               }
 	  }
 	  block();
             break;
+        // Dit hieronder zal nooit gebruikt worden
+        // Alleen voor tijdelijk overzicht
         case 2:
             // get
             msg = new ACLMessage(ACLMessage.PROPOSE);
