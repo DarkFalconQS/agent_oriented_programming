@@ -106,6 +106,21 @@ public class GlobalInventoryAgent extends Agent {
 	    );
 	  }
 	  block();
+         
+        case 2:
+            // get
+            msg = new ACLMessage(ACLMessage.PROPOSE);
+            msg.setContent(STATE_READY);
+        case 3:
+            // check
+            msg = new ACLMessage(ACLMessage.REQUEST);
+        case 4:
+            // put
+            msg = new ACLMessage(ACLMessage.CONFIRM);
+        case 5:
+            // available
+            msg = new ACLMessage(ACLMessage.ACCEPT_PROPOSAL);
+
       }
     }
 
