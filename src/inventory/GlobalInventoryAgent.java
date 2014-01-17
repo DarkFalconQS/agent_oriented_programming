@@ -68,12 +68,20 @@ public class GlobalInventoryAgent extends Agent {
     return item;
   }
   
-  public void setRackTable(){
-      gui.fillRackTable(m_racks);
+  public void setRackTable(ArrayList<inventory.RackAgent> racks){
+      gui.fillRackTable(racks);
   }
   
-  public void setInventoryTable(){
-      gui.fillItemTable(m_items);
+  public void setInventoryTable(ArrayList<inventory.InventoryItem> items){
+      gui.fillItemTable(items);
+  }
+  
+  public void addRackToTable(inventory.RackAgent rack){
+      gui.addRackToTable(rack);
+  }
+  
+  public void addItemToTable(inventory.InventoryItem item){
+      gui.addItemToTable(item);
   }
 
   public class MyBehaviour extends SimpleBehaviour {
