@@ -17,7 +17,7 @@ import jade.lang.acl.ACLMessage;
  */
 public class PutBehaviour extends SimpleBehaviour {
 
-  private Agent m_a;
+  private final Agent m_a;
   private InventoryItem m_item;
   private AID m_aid;
 

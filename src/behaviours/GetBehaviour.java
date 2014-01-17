@@ -17,10 +17,10 @@ import jade.lang.acl.ACLMessage;
  */
 public class GetBehaviour extends SimpleBehaviour {
 
-  private Agent m_a;
+  private final Agent m_a;
   private ACLMessage msg;
-  private InventoryItem m_item;
-  private AID m_aid;
+  private final InventoryItem m_item;
+  private final AID m_aid;
 
   public GetBehaviour(Agent a, InventoryItem item, AID aid) {
     super(a);

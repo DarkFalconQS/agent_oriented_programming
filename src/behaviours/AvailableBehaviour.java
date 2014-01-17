@@ -16,9 +16,9 @@ import jade.lang.acl.ACLMessage;
  */
 public class AvailableBehaviour extends SimpleBehaviour {
 
-  private Agent m_a;
+  private final Agent m_a;
   private ACLMessage msg;
-  private AID m_aid;
+  private final AID m_aid;
   private final int m_accept;
 
   public AvailableBehaviour(Agent a, int accept, AID aid) {
