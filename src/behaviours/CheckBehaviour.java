@@ -32,9 +32,10 @@ public class CheckBehaviour extends SimpleBehaviour {
   @Override
   public void action() {
     msg = new ACLMessage(ACLMessage.REQUEST);
-    msg.setContent("Name: " + m_item.getItemName() + "; Amount: " + m_item.getAmount() + ";");
+    msg.setContent("Name: " + m_item.getItemName() + "; Amount: " + m_item.getAmount());
     msg.addReceiver(m_aid);
     m_a.send(msg);
+    done();
   }
 
   private boolean finished = false;
@@ -44,14 +45,14 @@ public class CheckBehaviour extends SimpleBehaviour {
     return finished;
   }
 
-  private ACLMessage receive_msg() {
-    ACLMessage msg = m_a.receive();
-    if (msg != null) {
-      System.out.println(" - "
-	  + m_a.getLocalName() + " <- "
-	  + msg.getContent()
-      );
-    }
-    return msg;
-  }
+//  private ACLMessage receive_msg() {
+//    ACLMessage msg = m_a.receive();
+//    if (msg != null) {
+//      System.out.println(" - "
+//	  + m_a.getLocalName() + " <- "
+//	  + msg.getContent()
+//      );
+//    }
+//    return msg;
+//  }
 }

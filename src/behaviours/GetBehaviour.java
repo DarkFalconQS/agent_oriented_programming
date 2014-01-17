@@ -31,30 +31,17 @@ public class GetBehaviour extends SimpleBehaviour {
 
   @Override
   public void action() {
-    msg = new ACLMessage(ACLMessage.CONFIRM);
-    msg.setContent("Name: " + m_item.getItemName() + "; Amount: " + m_item.getAmount() + ";");
+    msg = new ACLMessage(ACLMessage.PROPOSE);
+    msg.setContent("Name: " + m_item.getItemName() + ", Amount: " + m_item.getAmount());
     msg.addReceiver(m_aid);
     m_a.send(msg);
-    System.out.println(msg);
-
-    ACLMessage reply = receive_msg();
+    done();
   }
 
-  private boolean finished = false;
+  private boolean finished = true;
 
   @Override
   public boolean done() {
     return finished;
-  }
-
-  private ACLMessage receive_msg() {
-    ACLMessage msg = m_a.receive();
-    if (msg != null) {
-      System.out.println(" - "
-	  + m_a.getLocalName() + " <- "
-	  + msg.getContent()
-      );
-    }
-    return msg;
   }
 }

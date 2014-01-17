@@ -30,22 +30,22 @@ public class AvailableBehaviour extends SimpleBehaviour {
 
   @Override
   public void action() {
+    msg.addReceiver(m_aid);
     if (m_accept == 1) /* Available and accept */ {
       msg = new ACLMessage(ACLMessage.ACCEPT_PROPOSAL);
       msg.setContent("Accepted Proposal");
-      msg.addReceiver(m_aid);
       m_a.send(msg);
     } else if (m_accept == 0 || m_accept == 2) /* Not accepted */ {
       msg = new ACLMessage(ACLMessage.REJECT_PROPOSAL);
       if (m_accept == 0) {
 	msg.setContent("Item Unavailable");
-      }
-      else if (m_accept == 0) {
+      } else if (m_accept == 2) {
 	msg.setContent("Not Accepted");
       }
       msg.addReceiver(m_aid);
       m_a.send(msg);
     }
+    done();
   }
 
   private boolean finished = false;
