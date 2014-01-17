@@ -1,1 +1,1 @@
-http://BlackPad:7778/acc
+http://BlackPad.lan:7778/acc
