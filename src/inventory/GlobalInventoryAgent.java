@@ -13,7 +13,6 @@ import static java.lang.Thread.sleep;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import src.inventory.GUI;
 
 /**
  *
@@ -23,7 +22,6 @@ public class GlobalInventoryAgent extends Agent {
 
   private ArrayList<RackAgent> m_racks;
   private ArrayList<InventoryItem> m_items;
-  private GUI gui = new GUI();
 
   public GlobalInventoryAgent() {
     m_racks = new ArrayList<>();
