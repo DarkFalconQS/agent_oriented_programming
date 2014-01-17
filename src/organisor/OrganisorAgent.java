@@ -21,6 +21,10 @@ public class OrganisorAgent extends Agent {
   private ArrayList<InventoryItem> m_items;
   private InventoryItem trade_item;
 
+  public OrganisorAgent() {
+    m_items = new ArrayList<>();
+  }
+
   protected void setup() {
   }
 
