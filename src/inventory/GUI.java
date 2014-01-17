@@ -32,14 +32,26 @@ public class GUI extends javax.swing.JFrame {
         }
     }
     
+    public void addItemToTable(inventory.InventoryItem item){
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.addRow(new Object[]{item.getItemName(), item.getSize(), item.getAmount(), item.getLocation()});
+    }
+    
     public void fillRackTable(ArrayList<inventory.RackAgent> racks){
-        jLabelTotalRacks.setName("" + racks.size());
+        jLabelTotalRacks.setText("" + racks.size());
         DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
         jTable2.removeAll();
         
         for(inventory.RackAgent rack : racks){
             model.addRow(new Object[]{rack.getMyName(), rack.getItems().size(), rack.getSlots()});
         }
+    }
+    
+    public void addRackToTable(inventory.RackAgent rack){
+        int count = Integer.parseInt(jLabelTotalRacks.getText());
+        jLabelTotalRacks.setText("" + count++);
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        model.addRow(new Object[]{rack.getMyName(), rack.getItems().size(), rack.getSlots()});
     }
 
     /**

@@ -13,6 +13,7 @@ import static java.lang.Thread.sleep;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import src.inventory.GUI;
 
 /**
  *
@@ -22,6 +23,7 @@ public class GlobalInventoryAgent extends Agent {
 
   private ArrayList<RackAgent> m_racks;
   private ArrayList<InventoryItem> m_items;
+  private GUI gui = new GUI();
 
   public GlobalInventoryAgent() {
     m_racks = new ArrayList<>();
@@ -55,7 +57,7 @@ public class GlobalInventoryAgent extends Agent {
       }
       return null;
   }
-
+  
 //    public void renderItems() {
 //        InventoryItem item1 = enterItem("Refridgerator", 2, 2);
 //        InventoryItem item2 = enterItem("Samsung USB 16GB", 50, 1);
@@ -64,6 +66,14 @@ public class GlobalInventoryAgent extends Agent {
   public InventoryItem enterItem(String name, int number_of, int size) {
     InventoryItem item = new InventoryItem(name, number_of, size);
     return item;
+  }
+  
+  public void setRackTable(){
+      gui.fillRackTable(m_racks);
+  }
+  
+  public void setInventoryTable(){
+      gui.fillItemTable(m_items);
   }
 
   public class MyBehaviour extends SimpleBehaviour {
