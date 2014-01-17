@@ -46,7 +46,7 @@ public class GlobalInventoryAgent extends Agent {
   public void getRackAgents() {
     /* check for all available rack agents */
   }
-  
+
   public RackAgent getRackAgentFromItem(InventoryItem item){
       for (InventoryItem m_item : m_items) {
           if(m_item.equals(item)){
@@ -55,7 +55,7 @@ public class GlobalInventoryAgent extends Agent {
       }
       return null;
   }
-  
+
 //    public void renderItems() {
 //        InventoryItem item1 = enterItem("Refridgerator", 2, 2);
 //        InventoryItem item2 = enterItem("Samsung USB 16GB", 50, 1);
@@ -64,22 +64,6 @@ public class GlobalInventoryAgent extends Agent {
   public InventoryItem enterItem(String name, int number_of, int size) {
     InventoryItem item = new InventoryItem(name, number_of, size);
     return item;
-  }
-  
-  public void setRackTable(ArrayList<inventory.RackAgent> racks){
-      gui.fillRackTable(racks);
-  }
-  
-  public void setInventoryTable(ArrayList<inventory.InventoryItem> items){
-      gui.fillItemTable(items);
-  }
-  
-  public void addRackToTable(inventory.RackAgent rack){
-      gui.addRackToTable(rack);
-  }
-  
-  public void addItemToTable(inventory.InventoryItem item){
-      gui.addItemToTable(item);
   }
 
   public class MyBehaviour extends SimpleBehaviour {
