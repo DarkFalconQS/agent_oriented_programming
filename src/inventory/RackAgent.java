@@ -54,7 +54,7 @@ public class RackAgent extends Agent {
             InventoryItem item = new InventoryItem(content_list[0], Integer.parseInt(content_list[1]), 0);
             addItem(item);
            // System.out.println("Name: " + item.getItemName() + ", Amount: " + item.getAmount());
-	
+
         }
         if (msg.getPerformative() == ACLMessage.QUERY_IF) {
               // Hebben wij dit? het mooiste is als het verschillende vragen kunnen worden
@@ -63,20 +63,20 @@ public class RackAgent extends Agent {
             if(!getItems().isEmpty()){
                 InventoryItem item = m_items.get(0); // This gets the first element of the list, the one we just added
                 System.out.println("Name: " + item.getItemName() + ", Amount: " + item.getAmount());
-	
+
             }else{
-                ACLMessage order = new ACLMessage(ACLMessage.INFORM_IF); 
-                order.addReceiver(msg.getSender()); 
-                order.setContent("ANSWER: FALSE"); 
-                m_a.send(order); 
+                ACLMessage order = new ACLMessage(ACLMessage.INFORM_IF);
+                order.addReceiver(msg.getSender());
+                order.setContent("ANSWER: FALSE");
+                m_a.send(order);
                 System.out.println("Empty m_items");
             }
-            
+
         }
 	msg.setReplyWith("Hi " + msg.getSender() + " from " + getLocalName());
 	m_a.send(msg);
-        
-      
+
+
       }
       block();
     }
@@ -84,6 +84,7 @@ public class RackAgent extends Agent {
 
   public RackAgent() {
     m_name = "name";
+    m_items = new ArrayList<>();
     m_route = 1;
   }
 
