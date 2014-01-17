@@ -9,6 +9,7 @@ import behaviours.GetBehaviour;
 import inventory.InventoryItem;
 import jade.core.AID;
 import jade.core.Agent;
+import jade.core.behaviours.SimpleBehaviour;
 import java.util.ArrayList;
 
 /**
@@ -20,6 +21,7 @@ public class OrganisorAgent extends Agent {
   private int m_slots;
   private ArrayList<InventoryItem> m_items;
   private InventoryItem trade_item;
+  private AID aid;
 
   public OrganisorAgent() {
     m_items = new ArrayList<>();
@@ -28,10 +30,25 @@ public class OrganisorAgent extends Agent {
   protected void setup() {
   }
 
+  public class OrganisorBehaviour extends SimpleBehaviour{
+    public OrganisorBehaviour(Agent a) {
+      super(a);
+    }
+
+    @Override
+    public void action() {
+      throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean done() {
+      throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+  }
+
 
   private void getItem() {
-    setTradeItem("Samsung USB 16GB green", 20);
-    AID aid = new AID("Rack1", AID.ISLOCALNAME);
     addBehaviour(new GetBehaviour(this, trade_item, aid));
   }
 
