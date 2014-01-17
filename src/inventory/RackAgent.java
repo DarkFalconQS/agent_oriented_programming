@@ -45,22 +45,27 @@ public class RackAgent extends Agent {
     public void action() {
       ACLMessage msg = m_a.receive();
       if (msg != null) {
-        String content = msg.getContent();
-	content_list = content.split("Name: ");
-	content_list = content_list[1].split(", Amount: ");
+        
         if (msg.getPerformative() == ACLMessage.PROPOSE) {
-              // We worden hier een Item geboden. Past hij, willen we hem?
-              // Response moet worde ACLMessage.ACCEPT_PROPOSAL zodat de ander niet een andere rack hoefd te zoeken
-             // vervolgens het nieuwe totaal melden... denk ik. ~nico
-            InventoryItem item = new InventoryItem(content_list[0], Integer.parseInt(content_list[1]), 0);
+            if(!msg.getContent().isEmpty()){
+            String content = msg.getContent();
+            try{
+            content_list = content.split("Name: ");
+            content_list = content_list[1].split(", Amount: ");
+            
+            InventoryItem item = new InventoryItem(content_list[0], Integer.parseInt(content_list[1]), 0); //0 word Size?
             addItem(item);
+            }catch (Exception exc){
+                System.out.println("RackAgent: Error > " + exc.toString());
+            }         
            // System.out.println("Name: " + item.getItemName() + ", Amount: " + item.getAmount());
-
+            }
+            else{
+                System.out.println("RackAgent: ProposeMessage is Empty!");
+            }
         }
         if (msg.getPerformative() == ACLMessage.QUERY_IF) {
-              // Hebben wij dit? het mooiste is als het verschillende vragen kunnen worden
-              // Denk bijvoorbeeld aan die Switch in het boek voorbeeld ~nico
-           // ArrayList lol = getItems();
+              
             if(!getItems().isEmpty()){
                 InventoryItem item = m_items.get(0); // This gets the first element of the list, the one we just added
                 System.out.println("Name: " + item.getItemName() + ", Amount: " + item.getAmount());
