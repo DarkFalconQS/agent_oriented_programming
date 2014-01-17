@@ -15,7 +15,6 @@ import javax.swing.table.DefaultTableModel;
  */
 public class GUI extends javax.swing.JFrame {
     
-    inventory.GlobalInventoryAgent GIA = new inventory.GlobalInventoryAgent();
 
     /**
      * Creates new form GUI
@@ -24,8 +23,7 @@ public class GUI extends javax.swing.JFrame {
         initComponents();            
     }
     
-    public void fillItemTable(){
-        ArrayList<inventory.InventoryItem> items= GIA.getInventory();
+    public void fillItemTable(ArrayList<inventory.InventoryItem> items){
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel(); 
         
         jTable1.removeAll();
@@ -34,8 +32,7 @@ public class GUI extends javax.swing.JFrame {
         }
     }
     
-    public void fillRackTable(){
-        ArrayList<inventory.RackAgent> racks = GIA.getRacks();
+    public void fillRackTable(ArrayList<inventory.RackAgent> racks){
         jLabelTotalRacks.setName("" + racks.size());
         DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
         jTable2.removeAll();
