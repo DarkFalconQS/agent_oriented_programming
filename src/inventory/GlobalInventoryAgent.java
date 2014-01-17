@@ -134,54 +134,53 @@ public class GlobalInventoryAgent extends Agent {
                         }
                     }
                     block();
-                    break;
         
 
 // Dit hieronder zal nooit gebruikt worden
                 // Alleen voor tijdelijk overzicht
-                case 2:
-                    // get
-                    msg = new ACLMessage(ACLMessage.PROPOSE);
-                    item = enterItem("Samsung USB 16GB", 50, 1);
-                    msg.setContent("Name: " + item.getItemName());
-                    msg.addReceiver(null);
-                    m_a.send(msg);
-                    step = 1;
-                case 3:
-                    // check
-                    msg = new ACLMessage(ACLMessage.REQUEST);
-                    item = enterItem("Samsung USB 16GB", 50, 1);
-                    msg.setContent("Name: " + item.getItemName());
-                    msg.addReceiver(null);
-                    m_a.send(msg);
-                    step = 1;
-                    break;
-                case 4:
-                    // put
-                    msg = new ACLMessage(ACLMessage.CONFIRM);
-                    item = enterItem("Samsung USB 16GB", 50, 1);
-                    msg.setContent("Name: " + item.getItemName());
-                    msg.addReceiver(null);
-                    m_a.send(msg);
-                    break;
-                case 5:
-                    // available
-                    msg = new ACLMessage(ACLMessage.ACCEPT_PROPOSAL);
-                    // TODO: stuur alle gegeven van item terug
-                    item = enterItem("Samsung USB 16GB", 50, 1);
-                    msg.setContent("Name: " + item.getItemName() + "; Amount: " + item.getAmount() + "; Size: " + item.getSize() + ";");
-                    // TODO: recieve agent
-                    msg.addReceiver(null);
-                    m_a.send(msg);
-                    break;
-                case 6:
-                    // not avaiable
-                    msg = new ACLMessage(ACLMessage.REJECT_PROPOSAL);
-                    msg.setContent("We don't have that item");
-                    // TODO: recieve agent
-                    msg.addReceiver(null);
-                    m_a.send(msg);
-                    break;
+//                case 2:
+//                    // get
+//                    msg = new ACLMessage(ACLMessage.PROPOSE);
+//                    item = enterItem("Samsung USB 16GB", 50, 1);
+//                    msg.setContent("Name: " + item.getItemName());
+//                    msg.addReceiver(null);
+//                    m_a.send(msg);
+//                    step = 1;
+//                case 3:
+//                    // check
+//                    msg = new ACLMessage(ACLMessage.REQUEST);
+//                    item = enterItem("Samsung USB 16GB", 50, 1);
+//                    msg.setContent("Name: " + item.getItemName());
+//                    msg.addReceiver(null);
+//                    m_a.send(msg);
+//                    step = 1;
+//                    break;
+//                case 4:
+//                    // put
+//                    msg = new ACLMessage(ACLMessage.CONFIRM);
+//                    item = enterItem("Samsung USB 16GB", 50, 1);
+//                    msg.setContent("Name: " + item.getItemName());
+//                    msg.addReceiver(null);
+//                    m_a.send(msg);
+//                    break;
+//                case 5:
+//                    // available
+//                    msg = new ACLMessage(ACLMessage.ACCEPT_PROPOSAL);
+//                    // TODO: stuur alle gegeven van item terug
+//                    item = enterItem("Samsung USB 16GB", 50, 1);
+//                    msg.setContent("Name: " + item.getItemName() + "; Amount: " + item.getAmount() + "; Size: " + item.getSize() + ";");
+//                    // TODO: recieve agent
+//                    msg.addReceiver(null);
+//                    m_a.send(msg);
+//                    break;
+//                case 6:
+//                    // not avaiable
+//                    msg = new ACLMessage(ACLMessage.REJECT_PROPOSAL);
+//                    msg.setContent("We don't have that item");
+//                    // TODO: recieve agent
+//                    msg.addReceiver(null);
+//                    m_a.send(msg);
+//                    break;
 
             }
         }
