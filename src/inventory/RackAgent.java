@@ -24,9 +24,9 @@ public class RackAgent extends Agent {
   @Override
   public void setup() {
     addBehaviour(new MyBehaviour(this));
-    ArrayList lol = new ArrayList<>();
-	 lol.add(new InventoryItem("Xbox", 5000, 0));
-     setItems(lol);
+   // ArrayList lol = new ArrayList<>();
+   //	 lol.add(new InventoryItem("Xbox", 5000, 0));
+   //  setItems(lol);
   }
 
   public class MyBehaviour extends CyclicBehaviour {
@@ -60,10 +60,18 @@ public class RackAgent extends Agent {
               // Hebben wij dit? het mooiste is als het verschillende vragen kunnen worden
               // Denk bijvoorbeeld aan die Switch in het boek voorbeeld ~nico
            // ArrayList lol = getItems();
-            InventoryItem item = m_items.get(0); // This gets the first element of the list, the one we just added
-            
-            System.out.println("Name: " + item.getItemName() + ", Amount: " + item.getAmount());
+            if(!getItems().isEmpty()){
+                InventoryItem item = m_items.get(0); // This gets the first element of the list, the one we just added
+                System.out.println("Name: " + item.getItemName() + ", Amount: " + item.getAmount());
 	
+            }else{
+                ACLMessage order = new ACLMessage(ACLMessage.INFORM_IF); 
+                order.addReceiver(msg.getSender()); 
+                order.setContent("ANSWER: FALSE"); 
+                m_a.send(order); 
+                System.out.println("Empty m_items");
+            }
+            
         }
 	msg.setReplyWith("Hi " + msg.getSender() + " from " + getLocalName());
 	m_a.send(msg);
