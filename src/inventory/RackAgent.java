@@ -23,10 +23,11 @@ public class RackAgent extends Agent {
 
   @Override
   public void setup() {
-    addBehaviour(new MyBehaviour(this));
-    ArrayList lol = new ArrayList<>();
-   	 lol.add(new InventoryItem("Xbox", 5000, 0));
-     setItems(lol);
+    
+    //ArrayList lol = new ArrayList<>();
+   	// lol.add(new InventoryItem("Xbox", 5000, 0));
+    //setItems(lol);
+     addBehaviour(new MyBehaviour(this));
   }
 
   public class MyBehaviour extends CyclicBehaviour {
