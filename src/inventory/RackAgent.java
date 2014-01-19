@@ -48,11 +48,12 @@ public class RackAgent extends Agent {
       });
       if (m_msg != null) {
 	if (m_msg.getPerformative() == ACLMessage.REQUEST) {
+	  try {
+	    content_list = m_msg.getContent().split("Name: ");
+	    content_list = content_list[1].split(", Amount: ");
+	  } catch (Exception ex) {
 
-	  content_list = m_msg.getContent().split("Name: ");
-	  content_list = content_list[1].split(", Amount: ");
-
-
+	  }
 
 	  // Check
 	}
@@ -90,7 +91,7 @@ public class RackAgent extends Agent {
   }
 
   public void checkItems(String name, int amount) {
-    
+
   }
 
   public void setItems(ArrayList<InventoryItem> items) {
@@ -99,15 +100,6 @@ public class RackAgent extends Agent {
 
   public void addItem(InventoryItem item) {
     this.m_items.add(item);
-  }
-
-  // report item when amount is less then 50% of size
-  private void checkItems() {
-    for (InventoryItem item : m_items) {
-      if ((item.getSize() / 2) > item.getAmount()) {
-	reportItem();
-      }
-    }
   }
 
   private void reportItem() {
