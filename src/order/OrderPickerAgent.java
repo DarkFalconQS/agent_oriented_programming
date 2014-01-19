@@ -5,12 +5,15 @@
  */
 package order;
 
+import behaviours.AvailableBehaviour;
+import behaviours.GetBehaviour;
 import inventory.InventoryItem;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ArrayBlockingQueue;
 
 /**
  *
@@ -24,6 +27,7 @@ public class OrderPickerAgent extends Agent {
 
     protected void setup() {
         addBehaviour(new OrderPickerAgent.MyBehaviour(this));
+        // addBehaviour(new AvailableBehaviour(this, 2, this.getAID()));
     }
 
     public ArrayList getOrderList() {
@@ -40,9 +44,10 @@ public class OrderPickerAgent extends Agent {
             m_orderList.add(list);
         }
     }
-    
+
     public OrderPickerAgent() {
         m_orderList = new ArrayList();
+        m_items = new ArrayList();
     }
 
     public class MyBehaviour extends CyclicBehaviour {
@@ -58,6 +63,7 @@ public class OrderPickerAgent extends Agent {
 
         @Override
         public void action() {
+
             ACLMessage msg = m_a.receive();
             if (msg != null) {
 
@@ -67,37 +73,64 @@ public class OrderPickerAgent extends Agent {
                             String content = msg.getContent();
                             try {
 
-                                content_list = content.split("Name: ");
-                                content_list = content_list[1].split(", Amount: ");
+                                String[] splitString = content.split(",");
+                                ArrayBlockingQueue nameQueue = new ArrayBlockingQueue(999);
+                                ArrayBlockingQueue amountQueue = new ArrayBlockingQueue(999);
+                                for (int i = 0; i < splitString.length; i++) {
+                                    String[] name;
+                                    String[] amount;
 
-                                InventoryItem item = new InventoryItem(content_list[0], Integer.parseInt(content_list[1]), 0); //0 word Size?
+                                    if (i % 2 == 0) {
+                                        name = splitString[i].split("Name: ");
+                                        nameQueue.add(name[1].trim());
+                                    } else if (i % 1 == 0) {
+                                        amount = splitString[i].split("Amount: ");
+                                        if (amount[1].contains("]") == true) {
+                                            amount[1] = amount[1].substring(0, (amount[1].length() - 1));
+                                        }
+                                        amountQueue.add(Integer.parseInt(amount[1]));
+                                    }
+                                }
+                                int counter = 0;
+                                while ((nameQueue.isEmpty() == false) && (amountQueue.isEmpty() == false)) {
+                                    int amount = (int) amountQueue.poll();
+                                    String name = (String) nameQueue.poll();
+                                    System.out.println("DEBUG = name:" + name + " || amount:" + amount);
+                                    InventoryItem item = new InventoryItem(name, amount, 1); //0 word Size?
+                                    System.out.println("DEBUG = Queue passed "+ (counter++));
+                                    m_items.add(item);
+                                }
+                                m_orderList.add(m_items);
+                                System.out.println(m_orderList.get(m_orderList.size()).toString());
+                                done();
+
                             } catch (Exception exc) {
-                                System.out.println("RackAgent: Error > " + exc.toString());
+                                System.out.println("OrderPickerAgent: Error 1 > " + exc.toString());
                                 done();
                             }
                             // System.out.println("Name: " + item.getItemName() + ", Amount: " + item.getAmount());
                         } else {
-                            System.out.println("RackAgent: ProposeMessage is Empty!");
+                            System.out.println("OrderPickerAgent: ProposeMessage is Empty!");
                             done();
                         }
                     } catch (NullPointerException exc) {
-                        System.out.println("RackAgent: Error " + exc.toString());
+                        System.out.println("OrderPickerAgent: Error 2 " + exc.toString());
                         done();
                     }
                 }
                 if (msg.getPerformative() == ACLMessage.QUERY_IF) {
 
-                    /* if (!getItems().isEmpty()) {
-                     InventoryItem item = m_items.get(0); // This gets the first element of the list, the one we just added
-                     //System.out.println("Name: " + item.getItemName() + ", Amount: " + item.getAmount());
-
-                     } else {
-                     ACLMessage order = new ACLMessage(ACLMessage.INFORM_IF);
-                     order.addReceiver(msg.getSender());
-                     order.setContent("ANSWER: FALSE");
-                     m_a.send(order);
-                     System.out.println("Empty m_items");
-                     } */
+//                    if (!getItems().isEmpty()) {
+//                     InventoryItem item = m_items.get(0); // This gets the first element of the list, the one we just added
+//                     //System.out.println("Name: " + item.getItemName() + ", Amount: " + item.getAmount());
+//
+//                     } else {
+//                     ACLMessage order = new ACLMessage(ACLMessage.INFORM_IF);
+//                     order.addReceiver(msg.getSender());
+//                     order.setContent("ANSWER: FALSE");
+//                     m_a.send(order);
+//                     System.out.println("Empty m_items");
+//                     }
                 }
                 msg.setReplyWith("Hi " + msg.getSender() + " from " + getLocalName());
                 m_a.send(msg);
