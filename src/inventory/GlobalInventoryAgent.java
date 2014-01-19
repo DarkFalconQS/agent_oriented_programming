@@ -63,11 +63,18 @@ public class GlobalInventoryAgent extends Agent {
         return false;
     }
 
-    public void renderItems() {
+    public ArrayList<InventoryItem> renderItems() {
         InventoryItem item1 = enterItem("Refridgerator", 2, 2);
         InventoryItem item2 = enterItem("Samsung USB 16GB", 50, 1);
         InventoryItem item3 = enterItem("Philips Senseo", 8, 4);
+        ArrayList<InventoryItem> test = null;
+        test.add(item1);
+        test.add(item2);
+        test.add(item3);
+        return test;
+        
     }
+    
     public InventoryItem enterItem(String name, int number_of, int size) {
         InventoryItem item = new InventoryItem(name, number_of, size);
         return item;
