@@ -43,8 +43,17 @@ public class RackAgent extends Agent {
     public void action() {
 
       // Hier moet de magishe swith of if else bla bla
-      addBehaviour(new MessageBehaviour(m_a));
-      System.out.println("Agent: " + m_msg.toString());
+      addBehaviour(new MessageBehaviour(m_a)
+      {
+             public void handle( ACLMessage msg ){  
+                if (msg == null) 
+                   System.out.println("Buyer: Timeout");
+                else 
+                   System.out.println("Buyer received: $"+ msg);
+    
+             }
+          });
+     // System.out.println("Agent: " + m_msg.toString());
     }
   }
 
