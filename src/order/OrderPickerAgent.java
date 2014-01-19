@@ -128,22 +128,8 @@ public class OrderPickerAgent extends Agent {
                         done();
                     }
                 }
-                if (msg.getPerformative() == ACLMessage.QUERY_IF) {
-
-//                    if (!getItems().isEmpty()) {
-//                     InventoryItem item = m_items.get(0); // This gets the first element of the list, the one we just added
-//                     //System.out.println("Name: " + item.getItemName() + ", Amount: " + item.getAmount());
-//
-//                     } else {
-//                     ACLMessage order = new ACLMessage(ACLMessage.INFORM_IF);
-//                     order.addReceiver(msg.getSender());
-//                     order.setContent("ANSWER: FALSE");
-//                     m_a.send(order);
-//                     System.out.println("Empty m_items");
-//                     }
-                }
-                msg.setReplyWith("Hi " + msg.getSender() + " from " + getLocalName());
-                m_a.send(msg);
+               // msg.setReplyWith("Hi " + msg.getSender() + " from " + getLocalName());
+               // m_a.send(msg);
                 done();
             }
             block();
