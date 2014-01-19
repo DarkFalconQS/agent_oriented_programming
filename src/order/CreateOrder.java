@@ -1,5 +1,6 @@
 package order;
 
+import jade.core.AID;
 import jade.lang.acl.ACLMessage;
 import javax.swing.table.DefaultTableModel;
 
@@ -20,6 +21,7 @@ public class CreateOrder extends javax.swing.JFrame {
      * Creates new form CreateOrder2
      */
     public CreateOrder() {
+        setTitle("Place an Order!");
         initComponents();
     }
 
@@ -121,7 +123,6 @@ public class CreateOrder extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
-        //msg = new ACLMessage(ACLMessage.INFORM);
         int tableCount = jTable1.getModel().getRowCount();
         String buildString = "";
 
@@ -131,14 +132,12 @@ public class CreateOrder extends javax.swing.JFrame {
             if (i == tableCount - 1) {
                 buildString += "Name: " + name + " Amount: " + amount;
             } else {
-                buildString+="Name: " + name + " Amount: " + amount+" , ";
+                buildString += "Name: " + name + " Amount: " + amount + " , ";
             }
         }
-        
-        System.out.println(buildString);
-        
-        //msg.setContent("test");
 
+        msg = new ACLMessage(ACLMessage.INFORM);
+        msg.setContent(buildString);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
