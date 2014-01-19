@@ -18,7 +18,7 @@ import jade.proto.states.MsgReceiver;
 public class MessageBehaviour extends MsgReceiver {
 
   private final Agent m_a;
-  private Object m_msg;
+  private ACLMessage m_msg;
 
   /**
    *
@@ -42,6 +42,7 @@ public class MessageBehaviour extends MsgReceiver {
 	  + " and I have received: " + msg.getContent() + " from " + msg.getSender().getLocalName());
 
       m_msg = msg;
+      handleMessage(m_msg);
     }
     block();
     finish();

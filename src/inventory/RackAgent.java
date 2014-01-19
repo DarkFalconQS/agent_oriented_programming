@@ -49,6 +49,7 @@ public class RackAgent extends Agent {
                 if (msg == null)
                    System.out.println("Buyer: Timeout");
                 else
+		   m_msg = msg;
                    System.out.println("Buyer received: $"+ msg);
 
              }
