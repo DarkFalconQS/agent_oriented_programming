@@ -47,8 +47,12 @@ public class RackAgent extends Agent {
 	}
       });
       if (m_msg != null) {
-	System.out.println("outside behaviour " + m_msg.getContent());
-	m_msg = null;
+	if (m_msg.getPerformative() == ACLMessage.REQUEST) {
+	  // Check
+	}
+	if (m_msg.getPerformative() == ACLMessage.PROPOSE) {
+	  // Get
+	}
       }
       // System.out.println("Agent: " + m_msg.toString());
     }
