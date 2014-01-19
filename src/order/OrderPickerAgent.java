@@ -7,6 +7,7 @@ package order;
 
 import inventory.InventoryItem;
 import jade.core.Agent;
+import jade.core.behaviours.CyclicBehaviour;
 import jade.core.behaviours.SimpleBehaviour;
 import jade.lang.acl.ACLMessage;
 import java.util.ArrayList;
@@ -47,7 +48,7 @@ public class OrderPickerAgent extends Agent {
         m_items = new ArrayList();
     }
 
-    public class MyBehaviour extends SimpleBehaviour {
+    public class MyBehaviour extends CyclicBehaviour {
 
         private Agent m_a;
         private String m_msg;
@@ -146,11 +147,6 @@ public class OrderPickerAgent extends Agent {
                 done();
             }
             block();
-        }
-
-        @Override
-        public boolean done() {
-            return true;
         }
     }
 
