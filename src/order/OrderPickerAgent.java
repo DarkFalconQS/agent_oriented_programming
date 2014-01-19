@@ -10,7 +10,6 @@ import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import java.util.ArrayList;
-import java.util.concurrent.ArrayBlockingQueue;
 
 /**
  *
@@ -64,32 +63,11 @@ public class OrderPickerAgent extends Agent {
     public void checkMessage(String content) {
       try {
 	m_items.clear();
-	String[] splitString = content.split(",");
-	ArrayBlockingQueue nameQueue = new ArrayBlockingQueue(999);
-	ArrayBlockingQueue amountQueue = new ArrayBlockingQueue(999);
+	String[] splitString = content.split(";");
 	for (int i = 0; i < splitString.length; i++) {
-	  String[] name;
-	  String[] amount;
-
-	  if (i % 2 == 0) {
-	    name = splitString[i].split("Name: ");
-	    nameQueue.add(name[1].trim());
-	  } else if (i % 1 == 0) {
-	    amount = splitString[i].split("Amount: ");
-	    if (amount[1].contains("]") == true) {
-	      amount[1] = amount[1].substring(0, (amount[1].length() - 1));
-	    }
-	    amountQueue.add(Integer.parseInt(amount[1]));
-	  }
-	}
-	while ((nameQueue.isEmpty() == false) && (amountQueue.isEmpty() == false)) {
-	  // Extra security not to hang here.
-	  if (amountQueue.isEmpty() == true) {
-	    break;
-	  }
-	  int amount = (int) amountQueue.poll();
-	  String name = (String) nameQueue.poll();
-	  InventoryItem item = new InventoryItem(name, amount, 1); //0 word Size?
+	  content_list = splitString[i].split("Name: ");
+	  content_list = content_list[1].split(", Amount: ");
+	  InventoryItem item = new InventoryItem(content_list[0], Integer.parseInt(content_list[1]), 0);
 	  m_items.add(item);
 	}
 	m_orderList.add(m_items);

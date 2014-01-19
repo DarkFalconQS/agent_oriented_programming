@@ -147,10 +147,10 @@ public class CreateOrder extends javax.swing.JFrame {
             if (i == tableCount - 1) {
                 buildString += "Name: " + name + " Amount: " + amount;
             } else {
-                buildString += "Name: " + name + " Amount: " + amount + " , ";
+                buildString += "Name: " + name + ", Amount: " + amount + " ; ";
             }
         }
-
+        System.out.println(buildString);
         msg = new ACLMessage(ACLMessage.PROPOSE);
         msg.setContent(buildString);
     }//GEN-LAST:event_jButton2ActionPerformed
