@@ -23,14 +23,18 @@ public class MessageBehaviour extends MsgReceiver {
   /**
    *
    * @param a a reference to the Agent
-   * @param mt the MessageTemplate of the message to be received, if null the first received message is returned by this behaviour
-   * @param deadline a timeout for waiting until a message arrives. It must be expressed as an absolute time, as it would be returned by System.currentTimeMillisec()
+   * @param mt the MessageTemplate of the message to be received, if null the
+   * first received message is returned by this behaviour
+   * @param deadline a timeout for waiting until a message arrives. It must be
+   * expressed as an absolute time, as it would be returned by
+   * System.currentTimeMillisec()
    * @param s the dataStore for this behaviour
-   * @param msgKey he key where the behaviour must put the received message into the DataStore.
+   * @param msgKey he key where the behaviour must put the received message into
+   * the DataStore.
    */
-    public MessageBehaviour(Agent a, MessageTemplate mt, long deadline, DataStore s, java.lang.Object msgKey) {
-      m_a = a;
-      m_msg =  null;
+  public MessageBehaviour(Agent a, MessageTemplate mt, long deadline, DataStore s, java.lang.Object msgKey) {
+    m_a = a;
+    m_msg = null;
   }
 
   @Override
@@ -43,8 +47,8 @@ public class MessageBehaviour extends MsgReceiver {
 
       m_msg = msg;
       handleMessage(m_msg);
+      msg = null;
     }
-    block(10000);
   }
 
   public Object finish() {
