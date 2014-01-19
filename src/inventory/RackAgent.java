@@ -43,7 +43,7 @@ public class RackAgent extends Agent {
     public void action() {
 
       // Hier moet de magishe swith of if else bla bla
-      addBehaviour(new MessageBehaviour(m_a, null, 1000, null, null)
+      addBehaviour(new MessageBehaviour(m_a, null, 10, null, null)
       {
              public void handleMessage( ACLMessage msg ){
                 if (msg == null)
@@ -54,8 +54,10 @@ public class RackAgent extends Agent {
 
              }
           });
-      if (m_msg != null)
+      if (m_msg != null) {
 	System.out.println("outside behaviour " + m_msg.getContent());
+	m_msg = null;
+      }
      // System.out.println("Agent: " + m_msg.toString());
     }
   }
