@@ -53,19 +53,7 @@ public class RackAgent extends Agent {
 	  // Check
 	}
 	if (m_msg.getPerformative() == ACLMessage.PROPOSE) {
-	  try {
-	    AID regAID = m_msg.getSender();
-	    content_list = m_msg.getContent().split("Name: ");
-	    content_list = content_list[1].split(", Amount: ");
-	    InventoryItem get = getItem(content_list[0]);
-	    if (get.getItemName() != "NOPE") {
-	      Behaviour send = new GiveBehaviour(this, get, regAID);
-	      addBehaviour(send);
-	      removeBehaviour(send);
-	    }
-	  } catch (Exception e) {
-	    System.err.println("RackAgent: Caught Exception: " + e.getMessage());
-	  }
+
 	  // Get
 	}
       }
@@ -83,6 +71,22 @@ public class RackAgent extends Agent {
       removeBehaviour(availableBehaviour);
     } catch (Exception ex) {
       System.out.println("Error in Check message " + getLocalName());
+    }
+  }
+
+  private void getMessageProcessing(ACLMessage m_msg) {
+    try {
+      AID regAID = m_msg.getSender();
+      content_list = m_msg.getContent().split("Name: ");
+      content_list = content_list[1].split(", Amount: ");
+      InventoryItem get = getItem(content_list[0]);
+      if (!"NOPE".equals(get.getItemName())) {
+	Behaviour send = new GiveBehaviour(this, get, regAID);
+	addBehaviour(send);
+	removeBehaviour(send);
+      }
+    } catch (Exception e) {
+      System.err.println("RackAgent: Caught Exception: " + e.getMessage());
     }
   }
 
