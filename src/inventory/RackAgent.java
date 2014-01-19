@@ -17,7 +17,6 @@ public class RackAgent extends Agent {
 
   private String m_name;
   private ArrayList<InventoryItem> m_items;
-  private int m_route;
   private int m_slots;
 
   @Override
@@ -31,7 +30,6 @@ public class RackAgent extends Agent {
     private Agent m_a;
     private ACLMessage m_msg;
     private String[] content_list;
-    private int m_route;
 
     public MyBehaviour(Agent a) {
       super(a);
@@ -57,17 +55,8 @@ public class RackAgent extends Agent {
   }
 
   public RackAgent() {
-    m_name = "name";
+    m_name = getLocalName();
     m_items = new ArrayList<>();
-
-  }
-
-  public int getRoute() {
-    return m_route;
-  }
-
-  public void setRoute(int route) {
-    this.m_route = route;
   }
 
   public String getMyName() {
