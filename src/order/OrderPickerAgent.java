@@ -83,7 +83,6 @@ public class OrderPickerAgent extends Agent {
                         amountQueue.add(Integer.parseInt(amount[1]));
                     }
                 }
-                int counter = 0;
                 while ((nameQueue.isEmpty() == false) && (amountQueue.isEmpty() == false)) {
                     // Extra security not to hang here.
                     if (amountQueue.isEmpty() == true) {
@@ -91,16 +90,10 @@ public class OrderPickerAgent extends Agent {
                     }
                     int amount = (int) amountQueue.poll();
                     String name = (String) nameQueue.poll();
-                    System.out.println("DEBUG = name:" + name + " || amount:" + amount);
                     InventoryItem item = new InventoryItem(name, amount, 1); //0 word Size?
-                    System.out.println("DEBUG = Queue passed " + (counter++));
-                    System.out.println(m_items.add(item));
-                    System.out.println("m_items size:" + m_items.size());
+                    m_items.add(item);
                 }
-                System.out.println("test output orderlist");
                 m_orderList.add(m_items);
-                System.out.println("after orderlist");
-                System.out.println(m_orderList.get(m_orderList.size() - 1).toString());
                 block();
                 done();
 

@@ -136,7 +136,7 @@ public class CreateOrder extends javax.swing.JFrame {
             }
         }
 
-        msg = new ACLMessage(ACLMessage.INFORM);
+        msg = new ACLMessage(ACLMessage.PROPOSE);
         msg.setContent(buildString);
     }//GEN-LAST:event_jButton2ActionPerformed
 
