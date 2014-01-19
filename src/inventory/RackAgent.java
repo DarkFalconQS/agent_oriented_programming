@@ -101,7 +101,7 @@ public class RackAgent extends Agent {
 
   public int checkItems(String name, int amount) {
     for (int i = 0; i <= m_items.size(); i++) {
-      if (m_items.get(i).getItemName() == name) {
+      if (m_items.get(i).getItemName().equals(name)) {
 	if (m_items.get(i).getAmount() >= amount) {
 	  return 1;
 	}
