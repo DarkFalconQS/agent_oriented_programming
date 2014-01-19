@@ -1,6 +1,7 @@
 package inventory;
 
 import behaviours.AvailableBehaviour;
+import behaviours.GiveBehaviour;
 import behaviours.MessageBehaviour;
 import jade.core.AID;
 import jade.core.Agent;
@@ -58,7 +59,9 @@ public class RackAgent extends Agent {
 	    content_list = content_list[1].split(", Amount: ");
 	    InventoryItem get = getItem(content_list[0]);
 	    if (get.getItemName() != "NOPE") {
-	      sendItem(get, regAID, m_name);
+	      Behaviour send = new GiveBehaviour(this, get, regAID);
+	      addBehaviour(send);
+	      removeBehaviour(send);
 	    }
 	  } catch (Exception e) {
 	    System.err.println("RackAgent: Caught Exception: " + e.getMessage());
