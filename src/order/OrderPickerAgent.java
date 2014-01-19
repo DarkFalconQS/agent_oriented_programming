@@ -128,8 +128,6 @@ public class OrderPickerAgent extends Agent {
                         done();
                     }
                 }
-               // msg.setReplyWith("Hi " + msg.getSender() + " from " + getLocalName());
-               // m_a.send(msg);
                 done();
             }
             block();
