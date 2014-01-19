@@ -48,6 +48,12 @@ public class RackAgent extends Agent {
       });
       if (m_msg != null) {
 	if (m_msg.getPerformative() == ACLMessage.REQUEST) {
+
+	  content_list = m_msg.getContent().split("Name: ");
+	  content_list = content_list[1].split(", Amount: ");
+
+
+
 	  // Check
 	}
 	if (m_msg.getPerformative() == ACLMessage.PROPOSE) {
@@ -81,6 +87,10 @@ public class RackAgent extends Agent {
 
   public ArrayList<InventoryItem> getItems() {
     return m_items;
+  }
+
+  public void checkItems(String name, int amount) {
+    
   }
 
   public void setItems(ArrayList<InventoryItem> items) {
