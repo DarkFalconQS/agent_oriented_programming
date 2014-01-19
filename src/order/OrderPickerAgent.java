@@ -72,7 +72,7 @@ public class OrderPickerAgent extends Agent {
                         if (!msg.getContent().isEmpty()) {
                             String content = msg.getContent();
                             try {
-
+                                m_items.clear();
                                 String[] splitString = content.split(",");
                                 ArrayBlockingQueue nameQueue = new ArrayBlockingQueue(999);
                                 ArrayBlockingQueue amountQueue = new ArrayBlockingQueue(999);
@@ -93,12 +93,18 @@ public class OrderPickerAgent extends Agent {
                                 }
                                 int counter = 0;
                                 while ((nameQueue.isEmpty() == false) && (amountQueue.isEmpty() == false)) {
+                                    // Extra security not to hang here.
+                                    if (amountQueue.isEmpty() == true) {
+                                        break;
+                                    }
                                     int amount = (int) amountQueue.poll();
                                     String name = (String) nameQueue.poll();
                                     System.out.println("DEBUG = name:" + name + " || amount:" + amount);
                                     InventoryItem item = new InventoryItem(name, amount, 1); //0 word Size?
-                                    System.out.println("DEBUG = Queue passed "+ (counter++));
-                                    m_items.add(item);
+                                    System.out.println("DEBUG = Queue passed " + (counter++));
+                                    System.out.println(m_items.add(item));
+                                    System.out.println("m_items size:"+m_items.size());
+                                    done();
                                 }
                                 m_orderList.add(m_items);
                                 System.out.println(m_orderList.get(m_orderList.size()).toString());
