@@ -44,9 +44,7 @@ public class MessageBehaviour extends MsgReceiver {
       m_msg = msg;
       handleMessage(m_msg);
     }
-    block();
-    System.out.println("got here!");
-    finish();
+    block(10000);
   }
 
   public Object finish() {
