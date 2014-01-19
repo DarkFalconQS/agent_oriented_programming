@@ -6,6 +6,8 @@
 package inventory;
 
 //import behaviours.PutBehaviour;
+import behaviours.PutBehaviour;
+import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
@@ -22,14 +24,17 @@ public class RackAgent extends Agent {
     private String m_name;
     private ArrayList<InventoryItem> m_items;
     private int m_slots;
+    private AID AID;
+    private InventoryItem itemy;
 
     @Override
     public void setup() {
 
-    //ArrayList lol = new ArrayList<>();
+        //ArrayList lol = new ArrayList<>();
         // lol.add(new InventoryItem("Xbox", 5000, 0));
         //setItems(lol);
         addBehaviour(new MyBehaviour(this));
+        addBehaviour(new PutBehaviour(this, itemy, AID));
     }
 
     public class MyBehaviour extends CyclicBehaviour {
@@ -59,7 +64,7 @@ public class RackAgent extends Agent {
 
                                 InventoryItem item = new InventoryItem(content_list[0], Integer.parseInt(content_list[1]), 0); //0 word Size?
                                 addItem(item);
-                            } catch (Exception exc) {
+                            } catch (NumberFormatException exc) {
                                 System.out.println("RackAgent: Error > " + exc.toString());
                                 done();
                             }
@@ -71,40 +76,57 @@ public class RackAgent extends Agent {
                     } catch (NullPointerException exc) {
                         System.out.println("RackAgent: Error " + exc.toString());
                         done();
-                }
+                    }
                 }
                 if (msg.getPerformative() == ACLMessage.QUERY_IF) {
-
+                    InventoryItem item = null;
                     if (!getItems().isEmpty()) {
-                        InventoryItem item = reqItem(msg.getContent());
-                        //InventoryItem item = m_items.get(0); // This gets the first element of the list, the one we just added
-                        System.out.println("Name: " + item.getItemName() + ", Amount: " + item.getAmount());
-                        // putBehaviour(new PutBehaviour(,item, msg.getSender()));
-                        //todo, fix externe behaviors
-                        
-                    } else {
-                        ACLMessage order = new ACLMessage(ACLMessage.INFORM_IF);
-                        order.addReceiver(msg.getSender());
-                        order.setContent("ANSWER: FALSE");
-                        m_a.send(order);
-                        System.out.println("Empty m_items");
+                        try {
+                            String content = msg.getContent();
+                            content_list = content.split("Name: ");
+                            content_list = content_list[1].split(", Amount: ");
+                            item = reqItem(content_list[0]);
+                            System.out.println("Name: " + item.getItemName() + ", Amount: " + item.getAmount());
+                  PutBehaviour behaviour = new PutBehaviour(m_a, item, msg.getSender());
+                            System.out.println(behaviour.toString());
+                        } catch (Exception exc) {
+                            System.out.println("RackAgent: Error > " + exc.toString());
+                            done();
+                        }
                     }
+                    //todo, ^^^^ fix externe behaviors ^^^^^
 
+                } else {
+                    ACLMessage order = new ACLMessage(ACLMessage.INFORM_IF);
+                    order.addReceiver(msg.getSender());
+                    order.setContent("ANSWER: FALSE");
+                    m_a.send(order);
+                    System.out.println("Empty m_items");
                 }
-                msg.setReplyWith("Hi " + msg.getSender() + " from " + getLocalName());
-                m_a.send(msg);
-                done();
+
+            }else{
+            msg.setContent("NOPE");
             }
-            block();
+            msg.setReplyWith("Hi " + msg.getSender() + " from " + getLocalName());
+            m_a.send(msg);
+            done();
         }
 
-        private InventoryItem reqItem(String content) {
-            Iterator<InventoryItem> items = m_items.iterator();
-         while (m_items.iterator().hasNext()){
-      System.out.println(flavoursIter.next());
+        block();
     }
-            content.split("Name: ")
+
+    private InventoryItem reqItem(String content) {
+        Iterator<InventoryItem> items = m_items.iterator();
+        InventoryItem send = new InventoryItem("[NOPE]", 0, 0);
+        while (items.hasNext()) {
+            InventoryItem item = items.next();
+            if (item.getItemName() == null ? content == null : item.getItemName().equals(content)) {
+                send = item;
+            }
+
         }
+        return send; //Altijd een item terug.. check if !"NOPE"
+
     }
 
     public RackAgent() {
@@ -159,6 +181,6 @@ public class RackAgent extends Agent {
     }
 
     private void reportItem() {
-
+        //TODO Of we moete hier een behavior in doen, want anders maak ik hier een ACL req in.
     }
 }

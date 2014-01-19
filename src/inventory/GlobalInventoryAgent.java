@@ -10,7 +10,6 @@ import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.SimpleBehaviour;
 import jade.lang.acl.ACLMessage;
-import jade.util.leap.Iterator;
 import static java.lang.Thread.sleep;
 import java.util.ArrayList;
 import java.util.logging.Level;
