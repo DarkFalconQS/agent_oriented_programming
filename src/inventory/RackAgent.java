@@ -50,9 +50,9 @@ public class RackAgent extends Agent {
 	    AID reqAID = m_msg.getSender();
 	    content_list = m_msg.getContent().split("Name: ");
 	    content_list = content_list[1].split(", Amount: ");
-            InventoryItem = getItem(content_list[0]);
-	    if ( != "NOPE") {
-
+            InventoryItem get = getItem(content_list[0]);
+	    if (get.getItemName() != "NOPE") {
+                 sendItem(get, regAID,m_name )
 	    }
 	  } catch (Exception e) {
 	    System.err.println("RackAgent: Caught Exception: " + e.getMessage());
