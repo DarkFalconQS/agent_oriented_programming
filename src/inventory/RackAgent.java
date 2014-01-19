@@ -48,10 +48,19 @@ public class RackAgent extends Agent {
       });
       if (m_msg != null) {
 	System.out.println("outside behaviour " + m_msg.getContent());
+        if(readMsg(m_msg) == true){
+	System.out.println("RackAgent: Succesfull parsed");
+        }else{
+	System.out.println("RackAgent: Incorrect Message");
+        }
 	m_msg = null;
       }
       // System.out.println("Agent: " + m_msg.toString());
     }
+
+        private boolean readMsg(ACLMessage m_msg) {
+           m_msg.getContent()
+        }
   }
 
   public RackAgent() {
