@@ -50,7 +50,8 @@ public class RackAgent extends Agent {
 	    AID reqAID = m_msg.getSender();
 	    content_list = m_msg.getContent().split("Name: ");
 	    content_list = content_list[1].split(", Amount: ");
-	    if (content_list[0]) {
+            InventoryItem = getItem(content_list[0]);
+	    if ( != "NOPE") {
 
 	    }
 	  } catch (Exception e) {
@@ -99,9 +100,13 @@ public class RackAgent extends Agent {
   public void addItem(InventoryItem item) {
     this.m_items.add(item);
   }
-  public void getItem(InventoryItem item) {
-    this.m_items
-            ;
+  public InventoryItem getItem(String itemS) {
+      InventoryItem result = new InventoryItem("NOPE",0,0);
+    for (InventoryItem s : this.m_items){
+    if (s.getItemName().equals(itemS))
+              result = s;
+            }
+    return result;
   }
 
   private void reportItem() {
