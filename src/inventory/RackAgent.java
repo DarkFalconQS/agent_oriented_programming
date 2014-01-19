@@ -1,8 +1,8 @@
 package inventory;
 
 import behaviours.MessageBehaviour;
+import jade.core.AID;
 import jade.core.Agent;
-import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import java.util.ArrayList;
 
@@ -18,30 +18,18 @@ public class RackAgent extends Agent {
   private String m_name;
   private ArrayList<InventoryItem> m_items;
   private int m_slots;
+  private ACLMessage m_msg;
+  private String[] content_list;
 
   @Override
   protected void setup() { //this runs once before starting behaviors
-    addBehaviour(new MyBehaviour(this));
     // First set-up answering behaviour
   }
 
-  public class MyBehaviour extends CyclicBehaviour {
-
-    private Agent m_a;
-    private ACLMessage m_msg;
-    private String[] content_list;
-
-    public MyBehaviour(Agent a) {
-      super(a);
-      m_a = a;
-      m_msg = null;
-    }
-
-    @Override
-    public void action() {
-
+  public void action() {
+    while(true){
       // Hier moet de magishe swith of if else bla bla
-      addBehaviour(new MessageBehaviour(m_a, null, 10, null, null) {
+      addBehaviour(new MessageBehaviour(this, null, 10, null, null) {
 	public void handleMessage(ACLMessage msg) {
 	  m_msg = msg;
 	}
@@ -58,6 +46,16 @@ public class RackAgent extends Agent {
 	  // Check
 	}
 	if (m_msg.getPerformative() == ACLMessage.PROPOSE) {
+	  try {
+	    AID reqAID = m_msg.getSender();
+	    content_list = m_msg.getContent().split("Name: ");
+	    content_list = content_list[1].split(", Amount: ");
+	    if (content_list[0]) {
+
+	    }
+	  } catch (Exception e) {
+	    System.err.println("RackAgent: Caught Exception: " + e.getMessage());
+	  }
 	  // Get
 	}
       }
