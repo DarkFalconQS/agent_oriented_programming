@@ -99,6 +99,10 @@ public class RackAgent extends Agent {
   public void addItem(InventoryItem item) {
     this.m_items.add(item);
   }
+  public void getItem(InventoryItem item) {
+    this.m_items
+            ;
+  }
 
   private void reportItem() {
     //TODO Of we moete hier een behavior in doen, want anders maak ik hier een ACL req in.
