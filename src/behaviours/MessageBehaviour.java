@@ -50,9 +50,4 @@ public class MessageBehaviour extends MsgReceiver {
       msg = null;
     }
   }
-
-  public Object finish() {
-    return m_msg;
-  }
-
 }
