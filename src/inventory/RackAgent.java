@@ -37,15 +37,18 @@ public class RackAgent extends Agent {
       m_msg = null;
     }
 
-    @Override
-    public void action() {
-
+    public void setup() {
       // Hier moet de magishe swith of if else bla bla
       addBehaviour(new MessageBehaviour(m_a, null, 10, null, null) {
 	public void handleMessage(ACLMessage msg) {
 	  m_msg = msg;
 	}
       });
+    }
+
+    @Override
+    public void action() {
+
       if (m_msg != null) {
 	System.out.println("outside behaviour " + m_msg.getContent());
 	m_msg = null;
