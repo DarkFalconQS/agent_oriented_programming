@@ -6,13 +6,11 @@
 package order;
 
 import behaviours.AvailableBehaviour;
-import behaviours.GetBehaviour;
 import inventory.InventoryItem;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 
 /**
@@ -27,7 +25,7 @@ public class OrderPickerAgent extends Agent {
 
     protected void setup() {
         addBehaviour(new OrderPickerAgent.MyBehaviour(this));
-        // addBehaviour(new AvailableBehaviour(this, 2, this.getAID()));
+        //addBehaviour(new AvailableBehaviour(this, 2, this.getAID()));
     }
 
     public ArrayList getOrderList() {
