@@ -25,6 +25,11 @@ public class RackAgent extends Agent {
   private Behaviour recMsg;
   private InventoryItem InventoryItem;
 
+  public RackAgent() {
+    m_name = getLocalName();
+    m_items = new ArrayList<>();
+  }
+
   @Override
   protected void setup() { //this runs once before starting behaviors
     // First set-up answering behaviour
@@ -42,27 +47,18 @@ public class RackAgent extends Agent {
       addBehaviour(recMsg);
       if (m_msg != null) {
 	if (m_msg.getPerformative() == ACLMessage.REQUEST) {
-	  try {
-	    content_list = m_msg.getContent().split("Name: ");
-	    content_list = content_list[1].split(", Amount: ");
-	    int available = checkItems(content_list[0], Integer.parseInt(content_list[1]));
-	    Behaviour availableBehaviour = new AvailableBehaviour(this, available, m_msg.getSender());
-	    addBehaviour(availableBehaviour);
-	    removeBehaviour(availableBehaviour);
-	  } catch (Exception ex) {
-	    System.out.println("Error in Check message " + getLocalName());
-	  }
+	  checkMessageProcessing(m_msg);
 
 	  // Check
 	}
 	if (m_msg.getPerformative() == ACLMessage.PROPOSE) {
 	  try {
-	    AID reqAID = m_msg.getSender();
+	    AID regAID = m_msg.getSender();
 	    content_list = m_msg.getContent().split("Name: ");
 	    content_list = content_list[1].split(", Amount: ");
-            InventoryItem get = getItem(content_list[0]);
+	    InventoryItem get = getItem(content_list[0]);
 	    if (get.getItemName() != "NOPE") {
-                 sendItem(get, regAID,m_name )
+	      sendItem(get, regAID, m_name);
 	    }
 	  } catch (Exception e) {
 	    System.err.println("RackAgent: Caught Exception: " + e.getMessage());
@@ -74,9 +70,17 @@ public class RackAgent extends Agent {
     }
   }
 
-  public RackAgent() {
-    m_name = getLocalName();
-    m_items = new ArrayList<>();
+  private void checkMessageProcessing(ACLMessage m_msg) {
+    try {
+      content_list = m_msg.getContent().split("Name: ");
+      content_list = content_list[1].split(", Amount: ");
+      int available = checkItems(content_list[0], Integer.parseInt(content_list[1]));
+      Behaviour availableBehaviour = new AvailableBehaviour(this, available, m_msg.getSender());
+      addBehaviour(availableBehaviour);
+      removeBehaviour(availableBehaviour);
+    } catch (Exception ex) {
+      System.out.println("Error in Check message " + getLocalName());
+    }
   }
 
   public String getMyName() {
@@ -118,12 +122,14 @@ public class RackAgent extends Agent {
   public void addItem(InventoryItem item) {
     this.m_items.add(item);
   }
+
   public InventoryItem getItem(String itemS) {
-      InventoryItem result = new InventoryItem("NOPE",0,0);
-    for (InventoryItem s : this.m_items){
-    if (s.getItemName().equals(itemS))
-              result = s;
-            }
+    InventoryItem result = new InventoryItem("NOPE", 0, 0);
+    for (InventoryItem s : this.m_items) {
+      if (s.getItemName().equals(itemS)) {
+	result = s;
+      }
+    }
     return result;
   }
 
