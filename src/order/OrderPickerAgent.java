@@ -38,6 +38,7 @@ public class OrderPickerAgent extends Agent {
 
     public OrderPickerAgent(ArrayList list) {
         m_orderList = new ArrayList();
+        m_items = new ArrayList();
         if (list != null) {
             m_orderList.add(list);
         }
@@ -46,6 +47,8 @@ public class OrderPickerAgent extends Agent {
     public OrderPickerAgent() {
         m_orderList = new ArrayList();
         m_items = new ArrayList();
+        CreateOrder orderGui = new CreateOrder();
+        orderGui.setVisible(true);
     }
 
     public class MyBehaviour extends CyclicBehaviour {
@@ -109,24 +112,20 @@ public class OrderPickerAgent extends Agent {
 
         @Override
         public void action() {
-
             ACLMessage msg = m_a.receive();
             if (msg != null) {
-
-                if (msg.getPerformative() == ACLMessage.PROPOSE) {
-                    try {
-                        if (!msg.getContent().isEmpty()) {
-                            String content = msg.getContent();
-                            System.out.println(content);
-                            checkMessage(content);
-                        } else {
-                            System.out.println("OrderPickerAgent: ProposeMessage is Empty!");
-                            done();
-                        }
-                    } catch (NullPointerException exc) {
-                        System.out.println("OrderPickerAgent: Error 2 " + exc.toString());
+                try {
+                    if (!msg.getContent().isEmpty()) {
+                        String content = msg.getContent();
+                        System.out.println(content);
+                        checkMessage(content);
+                    } else {
+                        System.out.println("OrderPickerAgent: Message is Empty!");
                         done();
                     }
+                } catch (NullPointerException exc) {
+                    System.out.println("OrderPickerAgent: Error 2 " + exc.toString());
+                    done();
                 }
                 done();
             }
