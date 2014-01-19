@@ -23,6 +23,7 @@ public class RackAgent extends Agent {
   private ACLMessage m_msg;
   private String[] content_list;
   private Behaviour recMsg;
+  private InventoryItem InventoryItem;
 
   @Override
   protected void setup() { //this runs once before starting behaviors
