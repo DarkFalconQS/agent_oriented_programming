@@ -36,6 +36,7 @@ public class MessageBehaviour extends CyclicBehaviour {
       m_msg = msg;
     }
     block();
+    finish();
   }
 
   public Object finish() {
