@@ -25,6 +25,7 @@ public class GlobalInventoryAgent extends Agent {
     }
 
     protected void setup() {
+        renderItems();
         addBehaviour(new MyBehaviour(this));
     }
 
@@ -62,11 +63,11 @@ public class GlobalInventoryAgent extends Agent {
         return false;
     }
 
-//    public void renderItems() {
-//        InventoryItem item1 = enterItem("Refridgerator", 2, 2);
-//        InventoryItem item2 = enterItem("Samsung USB 16GB", 50, 1);
-//        InventoryItem item3 = enterItem("Philips Senseo", 8, 4);
-//    }
+    public void renderItems() {
+        InventoryItem item1 = enterItem("Refridgerator", 2, 2);
+        InventoryItem item2 = enterItem("Samsung USB 16GB", 50, 1);
+        InventoryItem item3 = enterItem("Philips Senseo", 8, 4);
+    }
     public InventoryItem enterItem(String name, int number_of, int size) {
         InventoryItem item = new InventoryItem(name, number_of, size);
         return item;

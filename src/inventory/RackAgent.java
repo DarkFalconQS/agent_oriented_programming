@@ -105,6 +105,7 @@ public class RackAgent extends Agent {
       content_list = m_msg.getContent().split("Name: ");
       content_list = content_list[1].split(", Amount: ");
       InventoryItem get = getItem(content_list[0]);
+      System.out.println("RackAgent: GET[" + m_msg.toString() +  "]");
       if (!"NOPE".equals(get.getItemName())) {
 	Behaviour send = new GiveBehaviour(this, get, regAID);
 	addBehaviour(send);
@@ -119,6 +120,7 @@ public class RackAgent extends Agent {
     try {
       content_list = m_msg.getContent().split("Name: ");
       content_list = content_list[1].split(", Amount: ");
+      System.out.println("RackAgent: PUT[" + m_msg.toString() +  "]");
       int available = checkItems(content_list[0], Integer.parseInt(content_list[1]));
       Behaviour availableBehaviour = new AvailableBehaviour(this, available, m_msg.getSender());
       addBehaviour(availableBehaviour);
