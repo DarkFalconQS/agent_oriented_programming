@@ -12,10 +12,6 @@ import jade.core.Agent;
 import jade.core.behaviours.SimpleBehaviour;
 import java.util.ArrayList;
 
-/**
- *
- * @author Michaël
- */
 public class OrganisorAgent extends Agent {
 
   private int m_slots;
