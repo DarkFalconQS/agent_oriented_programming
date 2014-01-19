@@ -14,6 +14,7 @@ import jade.lang.acl.ACLMessage;
 /**
  *
  * @author Michaël
+ * @todoputBehavior moet hoe geimplementeerd worden?
  */
 public class PutBehaviour extends SimpleBehaviour {
 
@@ -21,10 +22,13 @@ public class PutBehaviour extends SimpleBehaviour {
   private InventoryItem m_item;
   private AID m_aid;
 
-  public PutBehaviour(Agent a) {
+  public PutBehaviour(Agent a, InventoryItem item, AID aid) {
     super(a);
     m_a = a;
+    m_aid = aid;
+    m_item = item;
   }
+  
 
   @Override
   public void action() {

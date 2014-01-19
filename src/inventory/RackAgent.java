@@ -5,14 +5,16 @@
  */
 package inventory;
 
+//import behaviours.PutBehaviour;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  *
- * @author Michaël
+ * @author Nico en Michaël
+ * @todo Externe Behaviors ?
  */
 public class RackAgent extends Agent {
 
@@ -74,9 +76,12 @@ public class RackAgent extends Agent {
                 if (msg.getPerformative() == ACLMessage.QUERY_IF) {
 
                     if (!getItems().isEmpty()) {
-                        InventoryItem item = m_items.get(0); // This gets the first element of the list, the one we just added
-                        //System.out.println("Name: " + item.getItemName() + ", Amount: " + item.getAmount());
-
+                        InventoryItem item = reqItem(msg.getContent());
+                        //InventoryItem item = m_items.get(0); // This gets the first element of the list, the one we just added
+                        System.out.println("Name: " + item.getItemName() + ", Amount: " + item.getAmount());
+                        // putBehaviour(new PutBehaviour(,item, msg.getSender()));
+                        //todo, fix externe behaviors
+                        
                     } else {
                         ACLMessage order = new ACLMessage(ACLMessage.INFORM_IF);
                         order.addReceiver(msg.getSender());
@@ -91,6 +96,14 @@ public class RackAgent extends Agent {
                 done();
             }
             block();
+        }
+
+        private InventoryItem reqItem(String content) {
+            Iterator<InventoryItem> items = m_items.iterator();
+         while (m_items.iterator().hasNext()){
+      System.out.println(flavoursIter.next());
+    }
+            content.split("Name: ")
         }
     }
 
