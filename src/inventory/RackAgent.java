@@ -13,8 +13,6 @@ import java.util.ArrayList;
  * This class has the purpose of sending, holding and recieving items Asswell
  * alerting a agent if the stock gets low
  *
- * @author Nico @ Michaël
- *
  */
 public class RackAgent extends Agent {
 

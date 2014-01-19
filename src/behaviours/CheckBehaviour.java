@@ -11,10 +11,6 @@ import jade.core.Agent;
 import jade.core.behaviours.SimpleBehaviour;
 import jade.lang.acl.ACLMessage;
 
-/**
- *
- * @author Michaël
- */
 public class CheckBehaviour extends SimpleBehaviour {
 
   private final Agent m_a;

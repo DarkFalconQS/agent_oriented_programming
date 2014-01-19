@@ -15,10 +15,6 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Michaël
- */
 public class GlobalInventoryAgent extends Agent {
 
     private ArrayList<RackAgent> m_racks;

@@ -6,10 +6,6 @@
 
 package inventory;
 
-/**
- *
- * @author Michaël
- */
 public class InventoryItem {
   private String m_itemName;
   private int m_amount;

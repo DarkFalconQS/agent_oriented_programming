@@ -11,10 +11,6 @@ import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import jade.proto.states.MsgReceiver;
 
-/**
- *
- * @author Michaël
- */
 public class MessageBehaviour extends MsgReceiver {
 
   private final Agent m_a;
