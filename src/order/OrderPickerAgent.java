@@ -9,6 +9,7 @@ import behaviours.AvailableBehaviour;
 import inventory.InventoryItem;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
+import jade.core.behaviours.SimpleBehaviour;
 import jade.lang.acl.ACLMessage;
 import java.util.ArrayList;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -48,7 +49,7 @@ public class OrderPickerAgent extends Agent {
         m_items = new ArrayList();
     }
 
-    public class MyBehaviour extends CyclicBehaviour {
+    public class MyBehaviour extends SimpleBehaviour {
 
         private Agent m_a;
         private String m_msg;
@@ -69,6 +70,7 @@ public class OrderPickerAgent extends Agent {
                     try {
                         if (!msg.getContent().isEmpty()) {
                             String content = msg.getContent();
+                            System.out.println(content);
                             try {
                                 m_items.clear();
                                 String[] splitString = content.split(",");
@@ -102,12 +104,14 @@ public class OrderPickerAgent extends Agent {
                                     System.out.println("DEBUG = Queue passed " + (counter++));
                                     System.out.println(m_items.add(item));
                                     System.out.println("m_items size:"+m_items.size());
-                                    done();
                                 }
+                                System.out.println("test output orderlist");
                                 m_orderList.add(m_items);
-                                System.out.println(m_orderList.get(m_orderList.size()).toString());
+                                System.out.println("after orderlist");
+                                System.out.println(m_orderList.get(m_orderList.size()-1).toString());
+                                block();
                                 done();
-
+                                
                             } catch (Exception exc) {
                                 System.out.println("OrderPickerAgent: Error 1 > " + exc.toString());
                                 done();
