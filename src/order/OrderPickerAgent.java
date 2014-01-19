@@ -20,6 +20,7 @@ import java.util.List;
 public class OrderPickerAgent extends Agent {
 
     private ArrayList<ArrayList> m_orderList;
+    private ArrayList<InventoryItem> m_items;
 
     protected void setup() {
         addBehaviour(new OrderPickerAgent.MyBehaviour(this));
@@ -38,6 +39,10 @@ public class OrderPickerAgent extends Agent {
         if (list != null) {
             m_orderList.add(list);
         }
+    }
+    
+    public OrderPickerAgent() {
+        m_orderList = new ArrayList();
     }
 
     public class MyBehaviour extends CyclicBehaviour {
@@ -82,18 +87,17 @@ public class OrderPickerAgent extends Agent {
                 }
                 if (msg.getPerformative() == ACLMessage.QUERY_IF) {
 
-                   /* if (!getItems().isEmpty()) {
-                        InventoryItem item = m_items.get(0); // This gets the first element of the list, the one we just added
-                        //System.out.println("Name: " + item.getItemName() + ", Amount: " + item.getAmount());
+                    /* if (!getItems().isEmpty()) {
+                     InventoryItem item = m_items.get(0); // This gets the first element of the list, the one we just added
+                     //System.out.println("Name: " + item.getItemName() + ", Amount: " + item.getAmount());
 
-                    } else {
-                        ACLMessage order = new ACLMessage(ACLMessage.INFORM_IF);
-                        order.addReceiver(msg.getSender());
-                        order.setContent("ANSWER: FALSE");
-                        m_a.send(order);
-                        System.out.println("Empty m_items");
-                    } */
-
+                     } else {
+                     ACLMessage order = new ACLMessage(ACLMessage.INFORM_IF);
+                     order.addReceiver(msg.getSender());
+                     order.setContent("ANSWER: FALSE");
+                     m_a.send(order);
+                     System.out.println("Empty m_items");
+                     } */
                 }
                 msg.setReplyWith("Hi " + msg.getSender() + " from " + getLocalName());
                 m_a.send(msg);
