@@ -30,8 +30,8 @@ public class MessageBehaviour extends CyclicBehaviour {
     ACLMessage msg = m_a.receive();
     if (msg != null) {
         // To test my new RackAgent
-			System.out.println("Receiver: I am  " + myAgent.getLocalName()
-					+ " and I have received: " + msg.getContent() +" from "+msg.getSender().getLocalName());
+    System.out.println("Receiver: I am  " + myAgent.getLocalName()
+		+ " and I have received: " + msg.getContent() +" from "+msg.getSender().getLocalName());
 
       m_msg = msg;
     }

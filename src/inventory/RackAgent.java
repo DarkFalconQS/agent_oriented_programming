@@ -4,6 +4,7 @@ import behaviours.MessageBehaviour;
 import behaviours.PutBehaviour;
 import jade.core.AID;
 import jade.core.Agent;
+import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import java.util.ArrayList;
 
@@ -24,17 +25,35 @@ public class RackAgent extends Agent {
 protected void setup() { //this runs once before starting behaviors
 
 		// First set-up answering behaviour
-		addBehaviour(new MessageBehaviour(this) );
-
+	
 
 	}	
+   public class MyBehaviour extends CyclicBehaviour {
 
-    public RackAgent() {
+        private Agent m_a;
+        private String m_msg;
+        private String[] content_list;
+        private int m_route;
+
+        public MyBehaviour(Agent a) {
+            super(a);
+            m_a = a;
+        }
+
+        @Override
+        public void action() {
+            
+            // Hier moet de magishe swith of if else bla bla 
+            addBehaviour(new MessageBehaviour(m_a));
+            System.out.println("Agent: " + m_msg.toString());
+        }    
+        
+        public MyBehaviour() {
         m_name = "name";
         m_items = new ArrayList<>();
-        m_route = 1;
-    }
-
+    
+        }
+   }
     public int getRoute() {
         return m_route;
     }
@@ -83,4 +102,4 @@ protected void setup() { //this runs once before starting behaviors
     private void reportItem() {
         //TODO Of we moete hier een behavior in doen, want anders maak ik hier een ACL req in.
     }
-}
+    }
