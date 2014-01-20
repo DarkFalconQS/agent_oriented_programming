@@ -98,7 +98,7 @@ public class GlobalInventoryAgent extends Agent {
                 case 0:
                     msg = new ACLMessage(ACLMessage.INFORM);
                     InventoryItem item = enterItem("Samsung USB 16GB", 50, 1);
-                    msg.setContent("Name: " + item.getItemName() + "; Amount: " + item.getAmount() + "; Size: " + item.getSize() + ";");
+                    msg.setContent("Name: " + item.getItemName() + ", Amount: " + item.getAmount() + ", Size: " + item.getSize());
                        System.out.println("G>" + msg.getContent());
                     for (int i = 1; i <= 1; i++) {
                         msg.addReceiver(new AID("Rack" + i, AID.ISLOCALNAME));
