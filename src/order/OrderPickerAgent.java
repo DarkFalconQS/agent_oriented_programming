@@ -41,13 +41,11 @@ public class OrderPickerAgent extends Agent {
         orderGui.setVisible(true);
     }
 
-<<<<<<< HEAD
     public void checkMessage(String content) {
         try {
             m_items.clear();
             String[] splitString = content.split(";");
-            System.out.println("lenght="+splitString.length);
-            for (int i = 0; i < splitString.length-1; i++) {
+            for (int i = 0; i < splitString.length - 1; i++) {
                 content_list = splitString[i].split("Name: ");
                 content_list = content_list[1].split(", Amount: ");
                 String name = content_list[0].trim();
@@ -59,13 +57,5 @@ public class OrderPickerAgent extends Agent {
         } catch (Exception exc) {
             System.out.println("OrderPickerAgent: Error 1 > " + exc.toString());
         }
-=======
-	m_items.add(item);
-	System.out.println("after item add");
-      }
-      m_orderList.add(m_items);
-    } catch (Exception exc) {
-      System.out.println("OrderPickerAgent: Error 1 > " + exc.toString());
->>>>>>> 85f218b22889d595110f6c9e68e40cb5d94b929d
     }
 }
