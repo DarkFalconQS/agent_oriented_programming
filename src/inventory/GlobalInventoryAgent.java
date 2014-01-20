@@ -98,14 +98,13 @@ public class GlobalInventoryAgent extends Agent {
 	ACLMessage the_msg = m_a.receive();
 	if (the_msg != null) {
 	  if (the_msg.getPerformative() == ACLMessage.SUBSCRIBE) {
-              System.out.println("MESSAGE SUBSCRIBED");
 	    ACLMessage new_msg = new ACLMessage(ACLMessage.INFORM);
 	    new_msg.addReceiver(the_msg.getSender());
 	    String string = "";
-	    for (int i = 0; i <= m_items.size(); i++) {
+	    for (int i = 0; i < m_items.size(); i++) {
 	      string += ("[" + m_items.get(i).getItemName() + "]");
 	    }
-            System.out.println("String"+string);
+              System.out.println("subscriber found");
 	    new_msg.setContent(string);
 	    m_a.send(new_msg);
 

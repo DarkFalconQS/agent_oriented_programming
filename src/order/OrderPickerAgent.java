@@ -76,32 +76,25 @@ public class OrderPickerAgent extends Agent {
         }
 
         @Override
-
         public void run() {
             try {
-                Thread.sleep(1000);
+                Thread.sleep(10000);
+                ACLMessage msg = new ACLMessage(ACLMessage.SUBSCRIBE);
+                msg.addReceiver(new AID("Global", AID.ISLOCALNAME));
+                msg.setContent("nothing");
+                agent.send(msg);
+                ACLMessage message;
+                Thread.sleep(2000);
+
+                message = receive();
+                Thread.sleep(2000);
+                if (message != null) {
+                    System.out.println(message.getContent());
+                }
             } catch (InterruptedException ex) {
                 Logger.getLogger(OrderPickerAgent.class.getName()).log(Level.SEVERE, null, ex);
             }
-            ACLMessage msg = new ACLMessage(ACLMessage.SUBSCRIBE);
-            msg.addReceiver(new AID("Global", AID.ISLOCALNAME));
-            msg.setContent("nothing");
-            agent.send(msg);
-            
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(OrderPickerAgent.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            ACLMessage message = agent.receive();
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(OrderPickerAgent.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            if (message != null) {
-                System.out.println(message.getContent());
-            }
+
             System.out.println("RUNNING:");
             while (true) {
 
@@ -114,7 +107,7 @@ public class OrderPickerAgent extends Agent {
 
                             //report available items
                         }
-	    // if all items packed:
+                        // if all items packed:
                         // remove order list, since we are done!
                         orderList.remove(0);
                     }
