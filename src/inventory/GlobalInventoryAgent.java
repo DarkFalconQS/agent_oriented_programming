@@ -88,7 +88,6 @@ public class GlobalInventoryAgent extends Agent {
     public MyBehaviour(Agent a) {
       super(a);
       m_a = a;
-      step = 0;
     }
 
     @Override
@@ -123,7 +122,6 @@ public class GlobalInventoryAgent extends Agent {
 	    Logger.getLogger(GlobalInventoryAgent.class.getName()).log(Level.SEVERE, null, ex);
 	  }
 	  m_a.send(msg);
-	  step = 1;
 	  msg = new ACLMessage(ACLMessage.REQUEST);
 	  msg.setContent("Name: Samsung USB 16GB, Amount: 20");
 	  for (int i = 1; i <= 1; i++) {
