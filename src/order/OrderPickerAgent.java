@@ -17,44 +17,52 @@ import java.util.ArrayList;
  */
 public class OrderPickerAgent extends Agent {
 
-  private ArrayList<ArrayList> m_orderList;
-  private ArrayList<InventoryItem> m_items;
-  public Behaviour orderBehaviour;
-  private String[] content_list;
+    private ArrayList<ArrayList> m_orderList;
+    private ArrayList<InventoryItem> m_items;
+    public Behaviour orderBehaviour;
+    private String[] content_list;
 
-  protected void setup() {
-    //addBehaviour(new AvailableBehaviour(this, 2, this.getAID()));
-  }
-
-  public ArrayList getOrderList() {
-    return m_orderList;
-  }
-
-  public void setOrderList(ArrayList orderList) {
-    this.m_orderList = orderList;
-  }
-
-  public OrderPickerAgent() {
-    m_orderList = new ArrayList();
-    m_items = new ArrayList();
-    CreateOrder orderGui = new CreateOrder(this);
-    orderGui.setVisible(true);
-  }
-
-  public void checkMessage(String content) {
-    try {
-      m_items.clear();
-      String[] splitString = content.split(";");
-      for (int i = 0; i < splitString.length; i++) {
-	content_list = splitString[i].split("Name: ");
-	content_list = content_list[1].split(", Amount: ");
-	InventoryItem item = new InventoryItem(content_list[0], Integer.parseInt(content_list[1]), 0);
-	m_items.add(item);
-      }
-      m_orderList.add(m_items);
-
-    } catch (Exception exc) {
-      System.out.println("OrderPickerAgent: Error 1 > " + exc.toString());
+    protected void setup() {
+        //addBehaviour(new AvailableBehaviour(this, 2, this.getAID()));
     }
-  }
+
+    public ArrayList getOrderList() {
+        return m_orderList;
+    }
+
+    public void setOrderList(ArrayList orderList) {
+        this.m_orderList = orderList;
+    }
+
+    public OrderPickerAgent() {
+        m_orderList = new ArrayList();
+        m_items = new ArrayList();
+        CreateOrder orderGui = new CreateOrder(this);
+        orderGui.setVisible(true);
+    }
+
+    public void checkMessage(String content) {
+        try {
+            m_items.clear();
+            String[] splitString = content.split(";");
+            System.out.println("lenght="+splitString.length);
+            for (int i = 0; i < splitString.length-1; i++) {
+                System.out.println("Debug: i = " + i);
+                content_list = splitString[i].split("Name: ");
+                content_list = content_list[1].split(", Amount: ");
+                
+                String name = content_list[0].trim();
+                int amount = Integer.parseInt(content_list[1].trim());
+                
+                System.out.println("Name:"+name+" Amount:"+1);
+                InventoryItem item = new InventoryItem(name, amount, 0);
+                
+                m_items.add(item);
+                System.out.println("after itemadd");
+            }
+            m_orderList.add(m_items);
+        } catch (Exception exc) {
+            System.out.println("OrderPickerAgent: Error 1 > " + exc.toString());
+        }
+    }
 }
