@@ -139,8 +139,4 @@ public class RackAgent extends Agent {
     }
     return result;
   }
-
-  private void reportItem() {
-    //TODO Of we moete hier een behavior in doen, want anders maak ik hier een ACL req in.
-  }
 }
