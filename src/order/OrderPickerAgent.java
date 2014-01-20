@@ -78,18 +78,18 @@ public class OrderPickerAgent extends Agent {
         @Override
 
         public void run() {
-
-            while (true) {
                 ACLMessage msg = new ACLMessage(ACLMessage.SUBSCRIBE);
                 msg.addReceiver(new AID("Global", AID.ISLOCALNAME));
                 agent.send(msg);
 
-                ACLMessage message = agent.receive();
-                if (message != null) {
-                    if (message.getPerformative() == ACLMessage.INFORM) {
-                        orderGui.fillComboBox(message);
-                    }
-                }
+            while (true) {
+
+                //ACLMessage message = agent.receive();
+                //if (message != null) {
+                    //if (message.getPerformative() == ACLMessage.INFORM) {
+                //        orderGui.fillComboBox(message);
+                    //}
+                //}
 
                 if (orderList.size() >= 0) {
                     while (orderList.isEmpty() == false) {
