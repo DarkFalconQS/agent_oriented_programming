@@ -47,7 +47,7 @@ public class OrderPickerAgent extends Agent {
       String[] splitString = content.split(";");
       for (int i = 0; i < splitString.length; i++) {
 	content_list = splitString[i].split("Name: ");
-	content_list = content_list[1].split(", Amount: ");
+	content_list = content_list[1].split(" , Amount: ");
 	InventoryItem item = new InventoryItem(content_list[0], Integer.parseInt(content_list[1]), 0);
 	m_items.add(item);
       }
