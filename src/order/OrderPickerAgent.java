@@ -79,15 +79,16 @@ public class OrderPickerAgent extends Agent {
 
         public void run() {
             try {
-                Thread.sleep(1000);
+                Thread.sleep(6000);
             } catch (InterruptedException ex) {
                 Logger.getLogger(OrderPickerAgent.class.getName()).log(Level.SEVERE, null, ex);
             }
             ACLMessage msg = new ACLMessage(ACLMessage.SUBSCRIBE);
             msg.addReceiver(new AID("Global", AID.ISLOCALNAME));
             msg.setContent("nothing");
-            agent.send(msg);
-            
+            send(msg);
+                    //agent.send(msg);
+                    
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException ex) {

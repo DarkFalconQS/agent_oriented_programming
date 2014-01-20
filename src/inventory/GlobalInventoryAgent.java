@@ -94,15 +94,16 @@ public class GlobalInventoryAgent extends Agent {
     @SuppressWarnings("empty-statement")
     public void action() {
       while (true) {
-
+          
 	ACLMessage the_msg = m_a.receive();
 	if (the_msg != null) {
+            System.out.println("A message came in");
 	  if (the_msg.getPerformative() == ACLMessage.SUBSCRIBE) {
               System.out.println("MESSAGE SUBSCRIBED");
 	    ACLMessage new_msg = new ACLMessage(ACLMessage.INFORM);
 	    new_msg.addReceiver(the_msg.getSender());
 	    String string = "";
-	    for (int i = 0; i <= m_items.size(); i++) {
+	    for (int i = 0; i < m_items.size(); i++) {
 	      string += ("[" + m_items.get(i).getItemName() + "]");
 	    }
             System.out.println("String"+string);
