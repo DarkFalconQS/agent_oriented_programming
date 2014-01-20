@@ -48,6 +48,10 @@ public class RackAgent extends Agent {
 	  getItemMessageProcessing(m_msg);
 	  // Get
 	}
+	if (m_msg.getPerformative() == ACLMessage.INFORM) {
+	  itemAdding(m_msg.getContent());
+	  // item given by global
+	}
       }
       // System.out.println("Agent: " + m_msg.toString());
     }
@@ -93,6 +97,14 @@ public class RackAgent extends Agent {
     this.m_items.add(item);
   }
 
+  private void itemAdding(String content) {
+    content_list = content.split("Name: ");
+    content_list = content_list[1].split(", Amount: ");
+    InventoryItem item = new InventoryItem(content_list[0], Integer.parseInt(content_list[1]),0);
+    item.setSize(Integer.parseInt(content_list[2].split(", Size: ")[0]));
+    addItem(item);
+  }
+
   private void getItemMessageProcessing(ACLMessage m_msg) {
     try {
       AID regAID = m_msg.getSender();
@@ -131,4 +143,5 @@ public class RackAgent extends Agent {
     }
     return result;
   }
+
 }

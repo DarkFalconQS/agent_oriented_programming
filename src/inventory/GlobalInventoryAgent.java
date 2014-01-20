@@ -72,9 +72,9 @@ public class GlobalInventoryAgent extends Agent {
         test.add(item2);
         test.add(item3);
         return test;
-        
+
     }
-    
+
     public InventoryItem enterItem(String name, int number_of, int size) {
         InventoryItem item = new InventoryItem(name, number_of, size);
         return item;
@@ -102,7 +102,7 @@ public class GlobalInventoryAgent extends Agent {
                        System.out.println("G>" + msg.getContent());
                     for (int i = 1; i <= 1; i++) {
                         msg.addReceiver(new AID("Rack" + i, AID.ISLOCALNAME));
-                      
+
                     }
                     try {
                         sleep(1000);
