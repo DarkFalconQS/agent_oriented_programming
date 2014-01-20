@@ -58,7 +58,7 @@ public class OrderPickerAgent extends Agent {
 	InventoryItem item = new InventoryItem(name, amount, 0);
 
 	m_items.add(item);
-	System.out.println("after itemadd");
+	System.out.println("after item add");
       }
       m_orderList.add(m_items);
     } catch (Exception exc) {
