@@ -44,6 +44,8 @@ public class RackAgent extends Agent {
     while (true) {
       // Hier moet de magishe swith of if else bla bla
       addBehaviour(recMsg);
+      System.out.println("RackAgent: PRE-TEST[" + m_msg.toString() + "]");
+	
       if (m_msg != null) {
 	if (m_msg.getPerformative() == ACLMessage.REQUEST) {
 	  checkItemMessageProcessing(m_msg);

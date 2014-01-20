@@ -6,10 +6,6 @@
 
 package inventory;
 
-/**
- *
- * @author Michaël
- */
 public class GUI extends javax.swing.JFrame {
 
   /**
