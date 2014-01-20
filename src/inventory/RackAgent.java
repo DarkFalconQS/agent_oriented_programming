@@ -2,7 +2,6 @@ package inventory;
 
 import behaviours.AvailableBehaviour;
 import behaviours.GiveBehaviour;
-import behaviours.MessageBehaviour;
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.Behaviour;
@@ -32,21 +31,15 @@ public class RackAgent extends Agent {
   @Override
   protected void setup() { //this runs once before starting behaviors
     // First set-up answering behaviour
-    recMsg = new MessageBehaviour(this, null, 10, null, null) {
-      @Override
-      public void handleMessage(ACLMessage msg) {
-	m_msg = msg;
-      }
-    };
+    action();
   }
 
   public void action() {
     while (true) {
       // Hier moet de magishe swith of if else bla bla
-      addBehaviour(recMsg);
-      System.out.println("RackAgent: PRE-TEST[" + m_msg.toString() + "]");
-	
+      m_msg = this.receive();
       if (m_msg != null) {
+	System.out.println("got message with " + m_msg.getContent());
 	if (m_msg.getPerformative() == ACLMessage.REQUEST) {
 	  checkItemMessageProcessing(m_msg);
 
@@ -107,7 +100,6 @@ public class RackAgent extends Agent {
       content_list = m_msg.getContent().split("Name: ");
       content_list = content_list[1].split(", Amount: ");
       InventoryItem get = getItem(content_list[0]);
-      System.out.println("RackAgent: GET[" + m_msg.toString() +  "]");
       if (!"NOPE".equals(get.getItemName())) {
 	Behaviour send = new GiveBehaviour(this, get, regAID);
 	addBehaviour(send);
@@ -122,7 +114,6 @@ public class RackAgent extends Agent {
     try {
       content_list = m_msg.getContent().split("Name: ");
       content_list = content_list[1].split(", Amount: ");
-      System.out.println("RackAgent: PUT[" + m_msg.toString() +  "]");
       int available = checkItems(content_list[0], Integer.parseInt(content_list[1]));
       Behaviour availableBehaviour = new AvailableBehaviour(this, available, m_msg.getSender());
       addBehaviour(availableBehaviour);
