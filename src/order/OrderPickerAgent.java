@@ -39,9 +39,7 @@ public class OrderPickerAgent extends Agent {
   public OrderPickerAgent() {
     m_orderList = new ArrayList();
     m_items = new ArrayList();
-//    orderBehaviour = new MyBehaviour(this);
-//    addBehaviour(orderBehaviour);
-    CreateOrder orderGui = new CreateOrder();
+    CreateOrder orderGui = new CreateOrder(this);
     orderGui.setVisible(true);
   }
 
