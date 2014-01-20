@@ -1,7 +1,5 @@
 package inventory;
 
-import behaviours.AvailableBehaviour;
-import behaviours.GiveBehaviour;
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.Behaviour;
@@ -100,21 +98,25 @@ public class RackAgent extends Agent {
   private void itemAdding(String content) {
     content_list = content.split("Name: ");
     content_list = content_list[1].split(", Amount: ");
-    InventoryItem item = new InventoryItem(content_list[0], Integer.parseInt(content_list[1].split(",")[0]),0);
+    InventoryItem item = new InventoryItem(content_list[0], Integer.parseInt(content_list[1].split(",")[0]), 0);
     item.setSize(Integer.parseInt(content_list[1].split(", Size: ")[1]));
+    System.out.println("Item name= '" + item.getItemName() + "' amount= '" + item.getAmount() + "' size= '" + item.getSize() + "'");
     addItem(item);
   }
 
   private void getItemMessageProcessing(ACLMessage m_msg) {
     try {
       AID regAID = m_msg.getSender();
+      System.out.println(regAID);
       content_list = m_msg.getContent().split("Name: ");
       content_list = content_list[1].split(", Amount: ");
       InventoryItem get = getItem(content_list[0]);
+      System.out.println(get.getAmount());
       if (!"NOPE".equals(get.getItemName())) {
-	Behaviour send = new GiveBehaviour(this, get, regAID);
-	addBehaviour(send);
-	removeBehaviour(send);
+	ACLMessage msg = new ACLMessage(ACLMessage.CONFIRM);
+	msg.setContent("Name: " + get.getItemName() + ", Amount: " + get.getAmount() + ", Size: " + get.getSize());
+	msg.addReceiver(regAID);
+	this.send(msg);
       }
     } catch (Exception e) {
       System.err.println("RackAgent: Caught Exception: " + e.getMessage());
@@ -126,9 +128,10 @@ public class RackAgent extends Agent {
       content_list = m_msg.getContent().split("Name: ");
       content_list = content_list[1].split(", Amount: ");
       int available = checkItems(content_list[0], Integer.parseInt(content_list[1]));
-      Behaviour availableBehaviour = new AvailableBehaviour(this, available, m_msg.getSender());
-      addBehaviour(availableBehaviour);
-      removeBehaviour(availableBehaviour);
+      ACLMessage msg = new ACLMessage(ACLMessage.ACCEPT_PROPOSAL);
+      msg.setContent("Accepted");
+      msg.addReceiver(m_msg.getSender());
+      this.send(msg);
     } catch (Exception ex) {
       System.out.println("Error in Check Item message " + getLocalName());
     }
