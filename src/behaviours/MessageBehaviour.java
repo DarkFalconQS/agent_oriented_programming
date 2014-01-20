@@ -42,6 +42,7 @@ public class MessageBehaviour extends MsgReceiver {
 	  + " and I have received: " + msg.getContent() + " from " + msg.getSender().getLocalName());
 
       m_msg = msg;
+      System.out.println(m_msg.toString());//DEBUG
       handleMessage(m_msg);
       msg = null;
     }

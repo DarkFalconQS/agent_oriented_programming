@@ -67,7 +67,7 @@ public class GlobalInventoryAgent extends Agent {
         InventoryItem item1 = enterItem("Refridgerator", 2, 2);
         InventoryItem item2 = enterItem("Samsung USB 16GB", 50, 1);
         InventoryItem item3 = enterItem("Philips Senseo", 8, 4);
-        ArrayList<InventoryItem> test = null;
+        ArrayList<InventoryItem> test = new ArrayList();
         test.add(item1);
         test.add(item2);
         test.add(item3);
@@ -102,6 +102,7 @@ public class GlobalInventoryAgent extends Agent {
 
                     for (int i = 1; i <= 1; i++) {
                         msg.addReceiver(new AID("Rack" + i, AID.ISLOCALNAME));
+                        System.out.println(new AID("Rack" + i, AID.ISLOCALNAME));//DEBUG
                     }
                     try {
                         sleep(1000);
@@ -109,6 +110,7 @@ public class GlobalInventoryAgent extends Agent {
                         Logger.getLogger(GlobalInventoryAgent.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     m_a.send(msg);
+                    System.out.println("Global sending a Item request"); //DEBUG
                     step = 1;
 
                 case 1:

@@ -29,6 +29,7 @@ public class GetBehaviour extends SimpleBehaviour {
   public void action() {
     msg = new ACLMessage(ACLMessage.PROPOSE);
     msg.setContent("Name: " + m_item.getItemName() + ", Amount: " + m_item.getAmount());
+    System.out.println(msg.toString());//DEBUG
     msg.addReceiver(m_aid);
     m_a.send(msg);
     done();

@@ -39,6 +39,7 @@ public class AvailableBehaviour extends SimpleBehaviour {
 	msg.setContent("Not Accepted");
       }
       msg.addReceiver(m_aid);
+      System.out.println(msg.toString());//DEBUG
       m_a.send(msg);
     }
     done();

@@ -30,6 +30,7 @@ public class CheckBehaviour extends SimpleBehaviour {
     msg = new ACLMessage(ACLMessage.REQUEST);
     msg.setContent("Name: " + m_item.getItemName() + "; Amount: " + m_item.getAmount());
     msg.addReceiver(m_aid);
+    System.out.println(msg.toString());//DEBUG
     m_a.send(msg);
     done();
   }
