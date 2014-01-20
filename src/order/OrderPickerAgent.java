@@ -8,8 +8,6 @@ package order;
 import inventory.InventoryItem;
 import jade.core.Agent;
 import jade.core.behaviours.Behaviour;
-import jade.core.behaviours.CyclicBehaviour;
-import jade.lang.acl.ACLMessage;
 import java.util.ArrayList;
 
 /**
@@ -59,39 +57,4 @@ public class OrderPickerAgent extends Agent {
       System.out.println("OrderPickerAgent: Error 1 > " + exc.toString());
     }
   }
-
-  public class MyBehaviour extends CyclicBehaviour {
-
-    private Agent m_a;
-    private String m_msg;
-    private String[] content_list;
-
-    public MyBehaviour(Agent a) {
-      super(a);
-      m_a = a;
-    }
-
-    @Override
-    public void action() {
-      ACLMessage msg = m_a.receive();
-      if (msg != null) {
-	try {
-	  if (!msg.getContent().isEmpty()) {
-	    String content = msg.getContent();
-	    System.out.println(content);
-	    checkMessage(content);
-	  } else {
-	    System.out.println("OrderPickerAgent: Message is Empty!");
-	    done();
-	  }
-	} catch (NullPointerException exc) {
-	  System.out.println("OrderPickerAgent: Error 2 " + exc.toString());
-	  done();
-	}
-	done();
-      }
-      block();
-    }
-  }
-
 }
