@@ -100,7 +100,7 @@ public class GlobalInventoryAgent extends Agent {
 	    new_msg.addReceiver(the_msg.getSender());
 	    String string = "";
 	    for (int i = 0; i <= m_items.size(); i++) {
-	      string += ("[" + m_items.get(i).getItemName() + "," + m_items.get(i).getAmount() + "]");
+	      string += ("[" + m_items.get(i).getItemName() + "]");
 	    }
 	    new_msg.setContent(string);
 	    m_a.send(new_msg);
