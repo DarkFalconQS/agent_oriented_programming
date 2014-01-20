@@ -5,29 +5,47 @@
  */
 package organisor;
 
+import behaviours.GetBehaviour;
 import inventory.InventoryItem;
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.SimpleBehaviour;
-import jade.lang.acl.ACLMessage;
 import java.util.ArrayList;
 
-/**
- *
- * @author Michaël
- */
 public class OrganisorAgent extends Agent {
 
   private int m_slots;
   private ArrayList<InventoryItem> m_items;
   private InventoryItem trade_item;
+  private AID aid;
+
+  public OrganisorAgent() {
+    m_items = new ArrayList<>();
+  }
 
   protected void setup() {
   }
 
+  public class OrganisorBehaviour extends SimpleBehaviour{
+    public OrganisorBehaviour(Agent a) {
+      super(a);
+    }
+
+    @Override
+    public void action() {
+      throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean done() {
+      throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+  }
+
+
   private void getItem() {
-    setTradeItem("Samsung USB 16GB green", 20);
-    addBehaviour(new GetBehaviour(this, trade_item));
+    addBehaviour(new GetBehaviour(this, trade_item, aid));
   }
 
   public void setTradeItem(String name, int amount) {
@@ -65,93 +83,5 @@ public class OrganisorAgent extends Agent {
 
   private void findNewLocation() {
 
-  }
-
-  public class CheckBehaviour extends SimpleBehaviour {
-
-    private Agent m_a;
-
-    public CheckBehaviour(Agent a) {
-
-    }
-
-    @Override
-    public void action() {
-      throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private boolean finished = false;
-
-    @Override
-    public boolean done() {
-      return finished;
-    }
-
-  }
-
-  public class PutBehaviour extends SimpleBehaviour {
-
-    private Agent m_a;
-
-    public PutBehaviour(Agent a) {
-      super(a);
-      m_a = a;
-    }
-
-    @Override
-    public void action() {
-    }
-
-    private boolean finished = false;
-
-    @Override
-    public boolean done() {
-      return finished;
-    }
-  }
-
-  public class GetBehaviour extends SimpleBehaviour {
-
-    private Agent m_a;
-    private ACLMessage msg;
-    private InventoryItem m_item;
-
-    public GetBehaviour(Agent a, InventoryItem item) {
-      super(a);
-      m_a = a;
-      m_item = item;
-    }
-
-    @Override
-    public void action() {
-      msg = new ACLMessage(ACLMessage.REQUEST);
-      msg.setContent("Name: " + m_item.getItemName() + "; Amount: " + m_item.getAmount() + ";");
-
-      for (int i = 1; i <= 1; i++) {
-	msg.addReceiver(new AID("Rack" + i, AID.ISLOCALNAME));
-      }
-      m_a.send(msg);
-      System.out.println(msg);
-
-      ACLMessage reply = receive_msg();
-    }
-
-    private boolean finished = false;
-
-    @Override
-    public boolean done() {
-      return finished;
-    }
-
-    private ACLMessage receive_msg() {
-      ACLMessage msg = m_a.receive();
-      if (msg != null) {
-	System.out.println(" - "
-	    + getLocalName() + " <- "
-	    + msg.getContent()
-	);
-      }
-      return msg;
-    }
   }
 }
