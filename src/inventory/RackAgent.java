@@ -45,6 +45,7 @@ public class RackAgent extends Agent {
       // Hier moet de magishe swith of if else bla bla
       addBehaviour(recMsg);
       if (m_msg != null) {
+	System.out.println("RackAgent: TEST[" + m_msg.toString() + "]");
 	if (m_msg.getPerformative() == ACLMessage.REQUEST) {
 	  checkItemMessageProcessing(m_msg);
 
@@ -105,7 +106,7 @@ public class RackAgent extends Agent {
       content_list = m_msg.getContent().split("Name: ");
       content_list = content_list[1].split(", Amount: ");
       InventoryItem get = getItem(content_list[0]);
-      System.out.println("RackAgent: GET[" + m_msg.toString() +  "]");
+      System.out.println("RackAgent: GET[" + m_msg.toString() + "]");
       if (!"NOPE".equals(get.getItemName())) {
 	Behaviour send = new GiveBehaviour(this, get, regAID);
 	addBehaviour(send);
@@ -120,7 +121,7 @@ public class RackAgent extends Agent {
     try {
       content_list = m_msg.getContent().split("Name: ");
       content_list = content_list[1].split(", Amount: ");
-      System.out.println("RackAgent: PUT[" + m_msg.toString() +  "]");
+      System.out.println("RackAgent: PUT[" + m_msg.toString() + "]");
       int available = checkItems(content_list[0], Integer.parseInt(content_list[1]));
       Behaviour availableBehaviour = new AvailableBehaviour(this, available, m_msg.getSender());
       addBehaviour(availableBehaviour);
