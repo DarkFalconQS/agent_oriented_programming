@@ -74,6 +74,7 @@ public class OrderPickerAgent extends Agent {
     }
 
     @Override
+
     public void run() {
       while (true) {
 	ACLMessage msg = new ACLMessage(ACLMessage.SUBSCRIBE);
@@ -89,7 +90,7 @@ public class OrderPickerAgent extends Agent {
 
 	      //report available items
 	    }
-                        // if all items packed:
+	    // if all items packed:
 	    // remove order list, since we are done!
 	    orderList.remove(0);
 	  }
