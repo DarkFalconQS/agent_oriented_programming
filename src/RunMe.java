@@ -7,7 +7,7 @@ import jade.wrapper.StaleProxyException;
 import order.OrderPickerAgent;
 
 /**
- * Aceasta este o clasa principala . Modificati-o pentru a rula agentii vostri.
+ * This is the main class. Modify it to run your agents.
  *
  */
 public class RunMe {
@@ -16,16 +16,16 @@ public class RunMe {
 		
 		//double click the  RunJade constructor to see the java doc asociated with it (that includes the parameter significance)
 		
-		//pentru a rula un container auxiliar comenteaza urmatoarea linie
-		RunJade r=new RunJade(true,"30000");// asta porneste un main container pe masina curenta portul 30000
+		//Booster to run a comment next line
+		RunJade r=new RunJade(true,"30000");// this starts a main container on the current car port 30000
 
-		//pentru a rula un container auxiliar: decomenteaza linia urmatoare si scrie ip-ul MainContainer-ului (asa cum e acum nu va merge sigur din cauza lui "ceva")
-		//RunJade r=new RunJade("193.226.37.ceva", "30000","30000");
-		
+		// to run a Booster: uncomment the next line and enter the ip's MainContainer (as it certainly will not work now because of "something") 
+                // R = new RunJade RunJade ("193.226.37.ceva", "30000", "30000");
+
 		/**
-		daca rulati un container auxiliar si in MainContainer ati rulat aceiasi agenti va aparea o eroare "name-clash" 
-		aceasta se datoreaza faptului ca ati incercat sa creati 2 agenti cu acelasi nume unul in MainContainer si unul in Containerul auxiliar (mai exact "a1" si "a2")
-		SOLUTIE: aveti grija ca numele sa fie unice in intreaga platforma.
+		If you run a MainContainer Booster and you run the same agents will appear an error "name-clash" 
+                This is because you tried to create two agents with the same name in MainContainer one and one booster (ie "a1" and "a2") 
+                SOLUTION: Make sure that names be unique across the platform.
 		*/
 		
 		//you will need this pointer to the created container in order to be able to create agents
@@ -33,7 +33,7 @@ public class RunMe {
 		
 
 		///////////////////////////////////////////////////////////////////////////
-		//crearea propriu-zisa a unui agent		
+		//actual creation of an agent		
 		try {
 
 			AgentController a = home.createNewAgent("Rack1",RackAgent.class.getName(), new Object[0]);
