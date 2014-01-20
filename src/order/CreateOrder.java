@@ -151,7 +151,7 @@ public class CreateOrder extends javax.swing.JFrame {
 	String name = (String) jTable1.getModel().getValueAt(i, 0);
 	int amount = (int) jTable1.getModel().getValueAt(i, 1);
 	if (i == tableCount - 1) {
-	  buildString += "Name: " + name + " Amount: " + amount;
+	  buildString += "Name: " + name + ", Amount: " + amount;
 	} else {
 	  buildString += "Name: " + name + ", Amount: " + amount + " ; ";
 	}
@@ -173,9 +173,10 @@ public class CreateOrder extends javax.swing.JFrame {
 
       int tableCount = jTable1.getModel().getRowCount();
       try {
-	for (int i = 0; i < tableCount; i++) {
-	  model.removeRow(i);
-	}
+	while(model.getRowCount() > 0)
+        {
+            model.removeRow(0);
+        }
       } catch (ArrayIndexOutOfBoundsException e) {
       }
       jTable1.updateUI();

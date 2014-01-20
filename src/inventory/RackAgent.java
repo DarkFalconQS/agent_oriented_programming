@@ -39,7 +39,11 @@ public class RackAgent extends Agent {
       // Hier moet de magishe swith of if else bla bla
       m_msg = this.receive();
       if (m_msg != null) {
+<<<<<<< HEAD
 	System.out.println("got message with " + m_msg.getContent());
+=======
+	System.out.println("RackAgent: TEST[" + m_msg.toString() + "]");
+>>>>>>> d15cb2fec43564758ce037d3706a7e438e55e803
 	if (m_msg.getPerformative() == ACLMessage.REQUEST) {
 	  checkItemMessageProcessing(m_msg);
 
@@ -100,6 +104,10 @@ public class RackAgent extends Agent {
       content_list = m_msg.getContent().split("Name: ");
       content_list = content_list[1].split(", Amount: ");
       InventoryItem get = getItem(content_list[0]);
+<<<<<<< HEAD
+=======
+      System.out.println("RackAgent: GET[" + m_msg.toString() + "]");
+>>>>>>> d15cb2fec43564758ce037d3706a7e438e55e803
       if (!"NOPE".equals(get.getItemName())) {
 	Behaviour send = new GiveBehaviour(this, get, regAID);
 	addBehaviour(send);
@@ -114,6 +122,10 @@ public class RackAgent extends Agent {
     try {
       content_list = m_msg.getContent().split("Name: ");
       content_list = content_list[1].split(", Amount: ");
+<<<<<<< HEAD
+=======
+      System.out.println("RackAgent: PUT[" + m_msg.toString() + "]");
+>>>>>>> d15cb2fec43564758ce037d3706a7e438e55e803
       int available = checkItems(content_list[0], Integer.parseInt(content_list[1]));
       Behaviour availableBehaviour = new AvailableBehaviour(this, available, m_msg.getSender());
       addBehaviour(availableBehaviour);
