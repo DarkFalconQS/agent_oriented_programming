@@ -45,14 +45,22 @@ public class OrderPickerAgent extends Agent {
     try {
       m_items.clear();
       String[] splitString = content.split(";");
-      for (int i = 0; i < splitString.length; i++) {
+      System.out.println("lenght=" + splitString.length);
+      for (int i = 0; i < splitString.length - 1; i++) {
+	System.out.println("Debug: i = " + i);
 	content_list = splitString[i].split("Name: ");
-	content_list = content_list[1].split(" , Amount: ");
-	InventoryItem item = new InventoryItem(content_list[0], Integer.parseInt(content_list[1]), 0);
+	content_list = content_list[1].split(", Amount: ");
+
+	String name = content_list[0].trim();
+	int amount = Integer.parseInt(content_list[1].trim());
+
+	System.out.println("Name:" + name + " Amount:" + 1);
+	InventoryItem item = new InventoryItem(name, amount, 0);
+
 	m_items.add(item);
+	System.out.println("after itemadd");
       }
       m_orderList.add(m_items);
-
     } catch (Exception exc) {
       System.out.println("OrderPickerAgent: Error 1 > " + exc.toString());
     }
