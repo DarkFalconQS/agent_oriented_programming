@@ -128,10 +128,10 @@ public class GlobalInventoryAgent extends Agent {
 	  for (int i = 1; i <= 1; i++) {
 	    msg.addReceiver(new AID("Rack" + i, AID.ISLOCALNAME));
 
+	  m_a.send(msg);
 	  }
 	  he = false;
 	} else {
-	  m_a.send(msg);
 	  msg = new ACLMessage(ACLMessage.REQUEST);
 	  msg.setContent("Name: Samsung USB 16GB, Amount: 20");
 	  for (int i = 1; i <= 1; i++) {
