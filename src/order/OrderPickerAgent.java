@@ -39,6 +39,8 @@ public class OrderPickerAgent extends Agent {
         m_items = new ArrayList();
         CreateOrder orderGui = new CreateOrder(this);
         orderGui.setVisible(true);
+        Test test = new Test(getOrderList());
+        test.run();
     }
 
     public void checkMessage(String content) {
@@ -57,5 +59,36 @@ public class OrderPickerAgent extends Agent {
         } catch (Exception exc) {
             System.out.println("OrderPickerAgent: Error 1 > " + exc.toString());
         }
+    }
+
+    private class Test implements Runnable {
+
+        ArrayList<ArrayList> orderList;
+
+        Test(ArrayList list) {
+            this.orderList = list;            
+        }
+
+        @Override
+        public void run() {
+            while (true) {
+                if (orderList.size() >= 0) {
+                    while (orderList.isEmpty() == false) {
+                        System.out.println(orderList.get(0).toString());
+                        int itemCount = orderList.get(0).size();
+                        System.out.println("itemcount:"+itemCount);
+                        for(int i = 0; i < itemCount; i++){
+                            //get item i
+                            
+                            //report available items
+                        }
+                        // if all items packed:
+                        // remove order list, since we are done!
+                        orderList.remove(0);
+                    }
+                }
+            }
+        }
+
     }
 }
