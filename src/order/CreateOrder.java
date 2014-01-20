@@ -151,7 +151,7 @@ public class CreateOrder extends javax.swing.JFrame {
 	String name = (String) jTable1.getModel().getValueAt(i, 0);
 	int amount = (int) jTable1.getModel().getValueAt(i, 1);
 	if (i == tableCount - 1) {
-	  buildString += "Name: " + name + ", Amount: " + amount;
+	  buildString += "Name: " + name + " Amount: " + amount;
 	} else {
 	  buildString += "Name: " + name + ", Amount: " + amount + " ; ";
 	}
