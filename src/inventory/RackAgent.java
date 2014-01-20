@@ -128,10 +128,17 @@ public class RackAgent extends Agent {
       content_list = m_msg.getContent().split("Name: ");
       content_list = content_list[1].split(", Amount: ");
       int available = checkItems(content_list[0], Integer.parseInt(content_list[1]));
-      ACLMessage msg = new ACLMessage(ACLMessage.ACCEPT_PROPOSAL);
-      msg.setContent("Accepted");
-      msg.addReceiver(m_msg.getSender());
-      this.send(msg);
+      if (available == 1) {
+	ACLMessage msg = new ACLMessage(ACLMessage.ACCEPT_PROPOSAL);
+	msg.setContent("Accepted");
+	msg.addReceiver(m_msg.getSender());
+	this.send(msg);
+      } else if (available == 0 || available == 2) {
+	ACLMessage msg = new ACLMessage(ACLMessage.REJECT_PROPOSAL);
+	msg.setContent("Item Unavailable");
+	msg.addReceiver(m_msg.getSender());
+      }
+
     } catch (Exception ex) {
       System.out.println("Error in Check Item message " + getLocalName());
     }
