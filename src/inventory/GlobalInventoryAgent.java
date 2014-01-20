@@ -105,6 +105,19 @@ public class GlobalInventoryAgent extends Agent {
 	    m_a.send(new_msg);
 
 	  }
+	  if (the_msg.getPerformative() == ACLMessage.ACCEPT_PROPOSAL) {
+	    ACLMessage new_msg = new ACLMessage(ACLMessage.CONFIRM);
+	    new_msg.addReceiver(new AID("OrderPicker", AID.ISLOCALNAME));
+	    new_msg.setContent("" + the_msg.getSender());
+	    m_a.send(new_msg);
+	  }
+	  if (the_msg.getPerformative() == ACLMessage.REQUEST);
+	  ACLMessage new_msg = new ACLMessage(ACLMessage.REQUEST);
+	  for (int i = 1; i <= 1; i++) {
+	    new_msg.addReceiver(new AID("Rack" + i, AID.ISLOCALNAME));
+	  }
+	  new_msg.setContent(the_msg.getContent());
+	  m_a.send(new_msg);
 	} else if (he == true) {
 	  msg = new ACLMessage(ACLMessage.INFORM);
 	  InventoryItem item = enterItem("Samsung USB 16GB", 50, 1);
