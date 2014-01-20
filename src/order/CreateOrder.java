@@ -27,6 +27,8 @@ public class CreateOrder extends javax.swing.JFrame {
 
   CreateOrder(OrderPickerAgent agent) {
     m_picker = agent;
+    setTitle("Place an Order!");
+    initComponents();
   }
 
   /**
