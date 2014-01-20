@@ -93,22 +93,22 @@ public class GlobalInventoryAgent extends Agent {
 
     @Override
     public void action() {
-      ACLMessage the_msg = m_a.receive();
-      if (the_msg != null) {
-	if (the_msg.getPerformative() == ACLMessage.SUBSCRIBE) {
-	  ACLMessage new_msg = new ACLMessage(ACLMessage.INFORM);
-	  new_msg.addReceiver(the_msg.getSender());
-	  String string = "";
-	  for (int i = 0; i <= m_items.size(); i++) {
-	    string+=("[" + m_items.get(i).getItemName()+","+m_items.get(i).getAmount()+","+m_items.get(i).getSize() + "]");
-	  }
-	  new_msg.setContent(string);
-	  m_a.send(new_msg);
+      while (true) {
 
-	}
-      }
-      switch (step) {
-	case 0:
+	ACLMessage the_msg = m_a.receive();
+	if (the_msg != null) {
+	  if (the_msg.getPerformative() == ACLMessage.SUBSCRIBE) {
+	    ACLMessage new_msg = new ACLMessage(ACLMessage.INFORM);
+	    new_msg.addReceiver(the_msg.getSender());
+	    String string = "";
+	    for (int i = 0; i <= m_items.size(); i++) {
+	      string += ("[" + m_items.get(i).getItemName() + "," + m_items.get(i).getAmount() + "," + m_items.get(i).getSize() + "]");
+	    }
+	    new_msg.setContent(string);
+	    m_a.send(new_msg);
+
+	  }
+	} else {
 	  msg = new ACLMessage(ACLMessage.INFORM);
 	  InventoryItem item = enterItem("Samsung USB 16GB", 50, 1);
 	  msg.setContent("Name: " + item.getItemName() + ", Amount: " + item.getAmount() + ", Size: " + item.getSize());
@@ -131,16 +131,7 @@ public class GlobalInventoryAgent extends Agent {
 
 	  }
 	  m_a.send(msg);
-	case 1:
-	  msg = m_a.receive();
-	  if (msg != null) {
-	    System.out.println(" - "
-		+ getLocalName() + " <- "
-		+ msg.getContent()
-	    );
-
-	  }
-	  block();
+	}
       }
     }
 
