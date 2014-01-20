@@ -86,7 +86,6 @@ public class GlobalInventoryAgent extends Agent {
     public MyBehaviour(Agent a) {
       super(a);
       m_a = a;
-      step = 0;
     }
 
     @Override
