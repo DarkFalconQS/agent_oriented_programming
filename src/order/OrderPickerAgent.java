@@ -76,10 +76,8 @@ public class OrderPickerAgent extends Agent {
                     while (orderList.isEmpty() == false) {
                         System.out.println(orderList.get(0).toString());
                         int itemCount = orderList.get(0).size();
-                        System.out.println("itemcount:"+itemCount);
                         for(int i = 0; i < itemCount; i++){
                             //get item i
-                            
                             //report available items
                         }
                         // if all items packed:
