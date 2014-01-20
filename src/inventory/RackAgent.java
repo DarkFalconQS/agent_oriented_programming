@@ -76,7 +76,7 @@ public class RackAgent extends Agent {
     }
 
     public int checkItems(String name, int amount) {
-        for (int i = 0; i <= m_items.size(); i++) {
+        for (int i = 0; i < m_items.size(); i++) {
             if (m_items.get(i).getItemName().equals(name)) {
                 if (m_items.get(i).getAmount() >= amount) {
                     return 1;
@@ -108,16 +108,16 @@ public class RackAgent extends Agent {
             System.out.println("Error in item Add Item message " + ex);
         }
     }
-  
+
 
     private void getItemMessageProcessing(ACLMessage m_msg) {
         try {
             AID regAID = m_msg.getSender();
-            System.out.println(regAID);
+//            System.out.println(regAID);
             content_list = m_msg.getContent().split("Name: ");
             content_list = content_list[1].split(", Amount: ");
             InventoryItem get = getItem(content_list[0]);
-            System.out.println(get.getAmount());
+//            System.out.println(get.getAmount());
             if (!"NOPE".equals(get.getItemName())) {
                 ACLMessage msg = new ACLMessage(ACLMessage.CONFIRM);
                 msg.setContent("Name: " + get.getItemName() + ", Amount: " + get.getAmount() + ", Size: " + get.getSize());
@@ -129,7 +129,7 @@ public class RackAgent extends Agent {
         }
     }
 
-  
+
 
     private void checkItemMessageProcessing(ACLMessage m_msg) {
         try {
@@ -151,7 +151,7 @@ public class RackAgent extends Agent {
             System.out.println("Error in Check Item message " + ex);
         }
     }
-  
+
 
     public InventoryItem getItem(String itemS) {
         InventoryItem result = new InventoryItem("NOPE", 0, 0);
