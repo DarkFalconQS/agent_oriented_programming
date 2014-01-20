@@ -99,9 +99,9 @@ public class RackAgent extends Agent {
 
   private void itemAdding(String content) {
     content_list = content.split("Name: ");
-    content_list = content_list[1].split(", Amount: ");
+    content_list = content_list[1].split(" , Amount: ");
     InventoryItem item = new InventoryItem(content_list[0], Integer.parseInt(content_list[1]),0);
-    item.setSize(Integer.parseInt(content_list[2].split(", Size: ")[0]));
+    item.setSize(Integer.parseInt(content_list[2].split(" , Size: ")[0]));
     addItem(item);
   }
 
