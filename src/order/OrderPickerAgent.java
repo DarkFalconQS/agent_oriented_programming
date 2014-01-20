@@ -7,6 +7,7 @@ package order;
 
 import inventory.InventoryItem;
 import jade.core.Agent;
+import jade.core.behaviours.Behaviour;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import java.util.ArrayList;
@@ -20,9 +21,10 @@ public class OrderPickerAgent extends Agent {
 
   private ArrayList<ArrayList> m_orderList;
   private ArrayList<InventoryItem> m_items;
+  public Behaviour orderBehaviour;
+  private String[] content_list;
 
   protected void setup() {
-    addBehaviour(new OrderPickerAgent.MyBehaviour(this));
     //addBehaviour(new AvailableBehaviour(this, 2, this.getAID()));
   }
 
@@ -34,19 +36,30 @@ public class OrderPickerAgent extends Agent {
     this.m_orderList = orderList;
   }
 
-  public OrderPickerAgent(ArrayList list) {
-    m_orderList = new ArrayList();
-    m_items = new ArrayList();
-    if (list != null) {
-      m_orderList.add(list);
-    }
-  }
-
   public OrderPickerAgent() {
     m_orderList = new ArrayList();
     m_items = new ArrayList();
+//    orderBehaviour = new MyBehaviour(this);
+//    addBehaviour(orderBehaviour);
     CreateOrder orderGui = new CreateOrder();
     orderGui.setVisible(true);
+  }
+
+  public void checkMessage(String content) {
+    try {
+      m_items.clear();
+      String[] splitString = content.split(";");
+      for (int i = 0; i < splitString.length; i++) {
+	content_list = splitString[i].split("Name: ");
+	content_list = content_list[1].split(", Amount: ");
+	InventoryItem item = new InventoryItem(content_list[0], Integer.parseInt(content_list[1]), 0);
+	m_items.add(item);
+      }
+      m_orderList.add(m_items);
+
+    } catch (Exception exc) {
+      System.out.println("OrderPickerAgent: Error 1 > " + exc.toString());
+    }
   }
 
   public class MyBehaviour extends CyclicBehaviour {
@@ -58,26 +71,6 @@ public class OrderPickerAgent extends Agent {
     public MyBehaviour(Agent a) {
       super(a);
       m_a = a;
-    }
-
-    public void checkMessage(String content) {
-      try {
-	m_items.clear();
-	String[] splitString = content.split(";");
-	for (int i = 0; i < splitString.length; i++) {
-	  content_list = splitString[i].split("Name: ");
-	  content_list = content_list[1].split(", Amount: ");
-	  InventoryItem item = new InventoryItem(content_list[0], Integer.parseInt(content_list[1]), 0);
-	  m_items.add(item);
-	}
-	m_orderList.add(m_items);
-	block();
-	done();
-
-      } catch (Exception exc) {
-	System.out.println("OrderPickerAgent: Error 1 > " + exc.toString());
-	done();
-      }
     }
 
     @Override
