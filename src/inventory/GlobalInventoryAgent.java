@@ -99,10 +99,10 @@ public class GlobalInventoryAgent extends Agent {
                     msg = new ACLMessage(ACLMessage.INFORM);
                     InventoryItem item = enterItem("Samsung USB 16GB", 50, 1);
                     msg.setContent("Name: " + item.getItemName() + "; Amount: " + item.getAmount() + "; Size: " + item.getSize() + ";");
-
+                       System.out.println("G>" + msg.getContent());
                     for (int i = 1; i <= 1; i++) {
                         msg.addReceiver(new AID("Rack" + i, AID.ISLOCALNAME));
-                        System.out.println(new AID("Rack" + i, AID.ISLOCALNAME));//DEBUG
+                      
                     }
                     try {
                         sleep(1000);
@@ -110,7 +110,6 @@ public class GlobalInventoryAgent extends Agent {
                         Logger.getLogger(GlobalInventoryAgent.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     m_a.send(msg);
-                    System.out.println("Global sending a Item request"); //DEBUG
                     step = 1;
 
                 case 1:
