@@ -21,7 +21,7 @@ public class GlobalInventoryAgent extends Agent {
   }
 
   protected void setup() {
-    renderItems();
+    m_items = renderItems();
     addBehaviour(new MyBehaviour(this));
   }
 
@@ -63,10 +63,12 @@ public class GlobalInventoryAgent extends Agent {
     InventoryItem item1 = enterItem("Refridgerator", 2, 2);
     InventoryItem item2 = enterItem("Samsung USB 16GB", 50, 1);
     InventoryItem item3 = enterItem("Philips Senseo", 8, 4);
+    InventoryItem item4 = enterItem("Samsung USB 16GB", 50, 1);
     ArrayList<InventoryItem> test = new ArrayList();
     test.add(item1);
     test.add(item2);
     test.add(item3);
+       test.add(item4);
     return test;
 
   }
@@ -96,12 +98,14 @@ public class GlobalInventoryAgent extends Agent {
 	ACLMessage the_msg = m_a.receive();
 	if (the_msg != null) {
 	  if (the_msg.getPerformative() == ACLMessage.SUBSCRIBE) {
+              System.out.println("MESSAGE SUBSCRIBED");
 	    ACLMessage new_msg = new ACLMessage(ACLMessage.INFORM);
 	    new_msg.addReceiver(the_msg.getSender());
 	    String string = "";
 	    for (int i = 0; i <= m_items.size(); i++) {
 	      string += ("[" + m_items.get(i).getItemName() + "]");
 	    }
+            System.out.println("String"+string);
 	    new_msg.setContent(string);
 	    m_a.send(new_msg);
 
