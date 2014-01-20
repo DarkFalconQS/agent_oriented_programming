@@ -5,6 +5,7 @@ import inventory.RackAgent;
 import jade.wrapper.AgentController;
 import jade.wrapper.ContainerController;
 import jade.wrapper.StaleProxyException;
+import order.OrderPickerAgent;
 
 public class RunMe {
 
@@ -28,7 +29,9 @@ public class RunMe {
 
 			a = home.createNewAgent("Global",GlobalInventoryAgent.class.getName(), new Object[0]);
 			a.start();
-
+                        
+                        a = home.createNewAgent("Global",OrderPickerAgent.class.getName(), new Object[0]);
+			a.start();
 
 		} catch (StaleProxyException e) {
 			e.printStackTrace();
