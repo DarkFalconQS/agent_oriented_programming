@@ -21,6 +21,7 @@ public class OrderPickerAgent extends Agent {
 
   private ArrayList<ArrayList> m_orderList;
   private ArrayList<InventoryItem> m_items;
+  private final Agent agent = this;
   public Behaviour orderBehaviour;
   private String[] content_list;
 
@@ -43,6 +44,13 @@ public class OrderPickerAgent extends Agent {
     orderGui.setVisible(true);
     Test test = new Test(getOrderList(), this);
     test.run();
+    
+    	ACLMessage msg = new ACLMessage(ACLMessage.SUBSCRIBE);
+	msg.addReceiver(new AID("Global", AID.ISLOCALNAME));
+	agent.send(msg);
+        
+       String content = agent.receive().getContent();
+       orderGui.fillComboBox(content);
   }
 
   public void checkMessage(String content) {
@@ -80,9 +88,11 @@ public class OrderPickerAgent extends Agent {
 	ACLMessage msg = new ACLMessage(ACLMessage.SUBSCRIBE);
 	msg.addReceiver(new AID("Global", AID.ISLOCALNAME));
 	agent.send(msg);
+        
+       String content = agent.receive().getContent();
+        
 	if (orderList.size() >= 0) {
 	  while (orderList.isEmpty() == false) {
-	    System.out.println(orderList.get(0).toString());
 	    int itemCount = orderList.get(0).size();
 	    for (int i = 0; i < itemCount; i++) {
                             //get item i
