@@ -31,8 +31,8 @@ public class CreateOrder extends javax.swing.JFrame {
         initComponents();
     }
     
-    public void fillComboBox(String content){
-        System.out.println(content);
+    public void fillComboBox(ACLMessage content){
+        System.out.println((String)content.getContent());
     }    /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
