@@ -41,6 +41,7 @@ public class OrderPickerAgent extends Agent {
         orderGui.setVisible(true);
     }
 
+<<<<<<< HEAD
     public void checkMessage(String content) {
         try {
             m_items.clear();
@@ -58,5 +59,13 @@ public class OrderPickerAgent extends Agent {
         } catch (Exception exc) {
             System.out.println("OrderPickerAgent: Error 1 > " + exc.toString());
         }
+=======
+	m_items.add(item);
+	System.out.println("after item add");
+      }
+      m_orderList.add(m_items);
+    } catch (Exception exc) {
+      System.out.println("OrderPickerAgent: Error 1 > " + exc.toString());
+>>>>>>> 85f218b22889d595110f6c9e68e40cb5d94b929d
     }
 }
