@@ -173,9 +173,10 @@ public class CreateOrder extends javax.swing.JFrame {
 
       int tableCount = jTable1.getModel().getRowCount();
       try {
-	for (int i = 0; i < tableCount; i++) {
-	  model.removeRow(i);
-	}
+	while(model.getRowCount() > 0)
+        {
+            model.removeRow(0);
+        }
       } catch (ArrayIndexOutOfBoundsException e) {
       }
       jTable1.updateUI();
